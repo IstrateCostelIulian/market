@@ -1,0 +1,67 @@
+
+RAW_MATERIAL
+GET 	localhost:8080/material
+	- all Materials
+
+POST 	/material
+	- body() :
+	{
+		"name":"",
+		"price":""
+	}
+
+GET 	/material/{name}
+	- material by name
+
+PUT 	/material/{name}
+	- body() :
+	{
+		"price":""
+	}
+
+DELETE 	/material/{name}
+	- remove material
+
+
+CUSTOMER
+GET		/customer
+	- find all customers
+GET		/customer/{name}
+	-find customer by name
+PUT		/customer/{name}
+	- body() :
+	{
+		"surname":"",
+		"address":"",
+		"phone_number":"",
+		"email_address":"",
+	}
+DELETE 	/customer/{name}
+	- remove customer
+
+ORDERS
+POST 	/customer/{name}/order
+	- body () :
+	{
+		"product_name" : "",
+		"amount" : "",
+		"price" : ""
+	}
+
+GET 	/customer/{name}/order
+	- all orders of customer {name}
+
+GET 	/customer/{name}/order/{name}
+	- get order by name
+
+PUT 	/customer/{name}/order/{name}
+	- body () :
+	{
+		"amount" : ""
+		"price" : ""
+	}
+
+
+
+
+

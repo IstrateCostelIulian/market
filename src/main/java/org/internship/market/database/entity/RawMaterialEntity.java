@@ -8,7 +8,7 @@ public class RawMaterialEntity {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
 
     @Column(name = "name", length = 50, nullable = false)
