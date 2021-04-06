@@ -1,5 +1,7 @@
 package org.internship.market.database.entity;
 
+import com.sun.xml.bind.v2.TODO;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,8 +11,7 @@ public class ProductEntity {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "raw_material_id")
+
     private RawMaterialEntity rawMaterialEntity;
     @Column(name = "commercial_excess")
     private double commercial_excess;

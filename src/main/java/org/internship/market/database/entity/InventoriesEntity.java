@@ -11,7 +11,6 @@ public class InventoriesEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToMany(mappedBy = "inventories")
     private ProductEntity product;
 
     @Column(name = "quantity", nullable = false)
