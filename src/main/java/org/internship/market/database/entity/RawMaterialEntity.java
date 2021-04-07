@@ -9,13 +9,17 @@ public class RawMaterialEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    private int id;
 
     @Column(name = "name", length = 50, nullable = false)
-    String name;
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "materials_for_product_id", nullable = false)
+    private ProductEntity productEntity;
 
     @Column(name = "price", nullable = false, precision = 2)
-    double price;
+    private double price;
 
     public int getId() {
         return id;
@@ -23,6 +27,14 @@ public class RawMaterialEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public ProductEntity getProductEntity() {
+        return productEntity;
+    }
+
+    public void setProductEntity(ProductEntity productEntity) {
+        this.productEntity = productEntity;
     }
 
     public String getName() {

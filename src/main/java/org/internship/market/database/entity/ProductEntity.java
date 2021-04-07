@@ -3,6 +3,7 @@ package org.internship.market.database.entity;
 import com.sun.xml.bind.v2.TODO;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -11,18 +12,13 @@ public class ProductEntity {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    private RawMaterialEntity rawMaterialEntity;
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
+    private List<RawMaterialEntity> rawMaterialEntities;
     @Column(name = "commercial_excess")
     private double commercial_excess;
     @Column(name = "price")
     private double price;
 
-    public ProductEntity(RawMaterialEntity rawMaterialEntity, double commercial_excess, double price) {
-        this.rawMaterialEntity = rawMaterialEntity;
-        this.commercial_excess = commercial_excess;
-        this.price = price;
-    }
 
     public ProductEntity() {
     }
@@ -35,12 +31,12 @@ public class ProductEntity {
         this.id = id;
     }
 
-    public RawMaterialEntity getRawMaterialEntity() {
-        return rawMaterialEntity;
+    public List<RawMaterialEntity> getRawMaterialEntities() {
+        return rawMaterialEntities;
     }
 
-    public void setRawMaterialEntity(RawMaterialEntity rawMaterialEntity) {
-        this.rawMaterialEntity = rawMaterialEntity;
+    public void setRawMaterialEntities(List<RawMaterialEntity> rawMaterialEntities) {
+        this.rawMaterialEntities = rawMaterialEntities;
     }
 
     public double getCommercial_excess() {
