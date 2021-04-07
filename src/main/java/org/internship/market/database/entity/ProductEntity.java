@@ -18,9 +18,24 @@ public class ProductEntity {
     private double commercial_excess;
     @Column(name = "price")
     private double price;
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
+    private List<OrdersEntity> ordersEntityList;
 
+
+    public ProductEntity(double commercial_excess, double price) {
+        this.commercial_excess = commercial_excess;
+        this.price = price;
+    }
 
     public ProductEntity() {
+    }
+
+    public List<OrdersEntity> getOrdersEntityList() {
+        return ordersEntityList;
+    }
+
+    public void setOrdersEntityList(List<OrdersEntity> ordersEntityList) {
+        this.ordersEntityList = ordersEntityList;
     }
 
     public long getId() {

@@ -1,9 +1,10 @@
 package org.internship.market.database.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class CustomerEntity {
 
     @Id
@@ -20,6 +21,8 @@ public class CustomerEntity {
     private String phone_number;
     @Column(name = "email_address", unique = true, nullable = false, length = 50)
     private String email_address;
+    @OneToMany(mappedBy = "customerEntity")
+    private List<CustomerEntity> customerEntityList;
 
     public CustomerEntity(String name, String surname, String address, String phone_number, String email_address) {
         this.name = name;
@@ -34,6 +37,10 @@ public class CustomerEntity {
 
     public long getId() {
         return id;
+    }
+
+    public void setCustomerEntityList(List<CustomerEntity> customerEntityList) {
+        this.customerEntityList = customerEntityList;
     }
 
     public void setId(long id) {
