@@ -6,18 +6,21 @@ import javax.persistence.*;
 @Table(name =  "inventories")
 public class InventoriesEntity {
 
+
     @Column(name = "id")
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private ProductEntity product;
 
+    private RawMaterialEntity rawMaterialEntity;
+
     @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    public InventoriesEntity(ProductEntity product, int quantity) {
+    public InventoriesEntity(ProductEntity product, RawMaterialEntity rawMaterialEntity, int quantity) {
         this.product = product;
+        this.rawMaterialEntity = rawMaterialEntity;
         this.quantity = quantity;
     }
 
@@ -30,6 +33,14 @@ public class InventoriesEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public RawMaterialEntity getRawMaterialEntity() {
+        return rawMaterialEntity;
+    }
+
+    public void setRawMaterialEntity(RawMaterialEntity rawMaterialEntity) {
+        this.rawMaterialEntity = rawMaterialEntity;
     }
 
     public ProductEntity getProduct() {

@@ -9,5 +9,8 @@
     <mapping class="org.internship.market.database.entity.RawMaterialEntity"/>
     <mapping class="org.internship.market.database.entity.AccountingEntity"/>
     <mapping class="org.internship.market.database.entity.CustomerEntity"/>
+    <mapping class="org.internship.market.database.entity.OrdersEntity"/>
+    <mapping class="org.internship.market.database.entity.ProductEntity"/>
+    <mapping class="org.internship.market.database.entity.InventoriesEntity"/>
 </session-factory>
 </hibernate-configuration>

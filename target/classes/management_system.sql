@@ -61,3 +61,5 @@ ALTER TABLE `orders` ADD FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id
 ALTER TABLE `orders` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 ALTER TABLE `products` ADD FOREIGN KEY (`materials_for_product_id`) REFERENCES `materials_for_product` (`id`);
+
+ALTER TABLE `inventories` ADD FOREIGN KEY (`product_id`) REFERENCES `products`(`id`);
