@@ -1,6 +1,8 @@
 package org.internship.market.database.dao.impl;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.internship.market.database.dao.RawMaterialDAO;
 import org.internship.market.database.entity.RawMaterialEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
+//@Repository
 public class RawMaterialDAOImpl implements RawMaterialDAO {
 
     @Autowired
@@ -16,7 +19,7 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
 
     @Override
     public List<RawMaterialEntity> getAllMaterial() {
-        return this.sessionFactory.getCurrentSession().createQuery("select r from RawMaterialEntity r").list();
+        return this.sessionFactory.getCurrentSession().createQuery("from RawMaterialEntity r").list();
     }
 
     @Override
@@ -25,8 +28,12 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
     }
 
     @Override
-    public RawMaterialEntity createRawMaterial(RawMaterialEntity rawMaterialEntity) {
-        return null;
+    public void createRawMaterial(RawMaterialEntity rawMaterialEntity) {
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.persist(rawMaterialEntity);
+        tx.commit();
+        session.close();
     }
 
     @Override

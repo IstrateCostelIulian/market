@@ -1,6 +1,5 @@
 package org.internship.market.database.entity;
 
-import com.sun.xml.bind.v2.TODO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,12 +11,16 @@ public class ProductEntity {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
     private List<RawMaterialEntity> rawMaterialEntities;
+
     @Column(name = "commercial_excess")
     private double commercial_excess;
+
     @Column(name = "price")
     private double price;
+
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
     private List<OrdersEntity> ordersEntityList;
 
