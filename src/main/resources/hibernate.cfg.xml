@@ -6,6 +6,9 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost/management_system</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">258741</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
+
     <mapping class="org.internship.market.database.entity.RawMaterialEntity"/>
     <mapping class="org.internship.market.database.entity.AccountingEntity"/>
     <mapping class="org.internship.market.database.entity.CustomerEntity"/>

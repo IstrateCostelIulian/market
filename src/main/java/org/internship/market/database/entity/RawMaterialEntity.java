@@ -1,6 +1,8 @@
 package org.internship.market.database.entity;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "raw_materials")
@@ -14,12 +16,20 @@ public class RawMaterialEntity {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "materials_for_product_id", nullable = false)
-    private ProductEntity productEntity;
+    @OneToMany(mappedBy = "rawMaterialEntity")
+    private List<ProductEntity> productEntities;
 
     @Column(name = "price", nullable = false, precision = 2)
     private double price;
+
+
+    public RawMaterialEntity(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public RawMaterialEntity() {
+    }
 
     public int getId() {
         return id;
@@ -29,12 +39,12 @@ public class RawMaterialEntity {
         this.id = id;
     }
 
-    public ProductEntity getProductEntity() {
-        return productEntity;
+    public List<ProductEntity> getProductEntities() {
+        return productEntities;
     }
 
-    public void setProductEntity(ProductEntity productEntity) {
-        this.productEntity = productEntity;
+    public void setProductEntities(List<ProductEntity> productEntities) {
+        this.productEntities = productEntities;
     }
 
     public String getName() {

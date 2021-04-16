@@ -10,7 +10,7 @@ public interface RawMaterialDAO {
 
     RawMaterialEntity getRawMaterialByName(String name);
 
-    RawMaterialEntity createRawMaterial(RawMaterialEntity rawMaterialEntity);
+    void createRawMaterial(RawMaterialEntity rawMaterialEntity);
 
     void updateRawMaterial(String name, double newPriceValue);
 

@@ -1,6 +1,5 @@
 package org.internship.market.database.entity;
 
-import com.sun.xml.bind.v2.TODO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,17 +11,23 @@ public class ProductEntity {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
-    private List<RawMaterialEntity> rawMaterialEntities;
+
+    @ManyToOne(targetEntity = RawMaterialEntity.class)
+    @JoinColumn(name = "materials_for_product_id", referencedColumnName = "id" ,nullable = false)
+    private RawMaterialEntity rawMaterialEntity;
+
     @Column(name = "commercial_excess")
     private double commercial_excess;
+
     @Column(name = "price")
     private double price;
-    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "productEntity")
     private List<OrdersEntity> ordersEntityList;
 
 
-    public ProductEntity(double commercial_excess, double price) {
+    public ProductEntity(RawMaterialEntity rawMaterialEntity, double commercial_excess, double price) {
+        this.rawMaterialEntity = rawMaterialEntity;
         this.commercial_excess = commercial_excess;
         this.price = price;
     }
@@ -46,12 +51,8 @@ public class ProductEntity {
         this.id = id;
     }
 
-    public List<RawMaterialEntity> getRawMaterialEntities() {
-        return rawMaterialEntities;
-    }
-
-    public void setRawMaterialEntities(List<RawMaterialEntity> rawMaterialEntities) {
-        this.rawMaterialEntities = rawMaterialEntities;
+    public RawMaterialEntity getRawMaterialEntity() {
+        return rawMaterialEntity;
     }
 
     public double getCommercial_excess() {

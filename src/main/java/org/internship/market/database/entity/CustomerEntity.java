@@ -22,7 +22,7 @@ public class CustomerEntity {
     @Column(name = "email_address", unique = true, nullable = false, length = 50)
     private String email_address;
     @OneToMany(mappedBy = "customerEntity")
-    private List<CustomerEntity> customerEntityList;
+    private List<OrdersEntity> ordersEntityList;
 
     public CustomerEntity(String name, String surname, String address, String phone_number, String email_address) {
         this.name = name;
@@ -39,8 +39,12 @@ public class CustomerEntity {
         return id;
     }
 
-    public void setCustomerEntityList(List<CustomerEntity> customerEntityList) {
-        this.customerEntityList = customerEntityList;
+    public List<OrdersEntity> getOrdersEntityList() {
+        return ordersEntityList;
+    }
+
+    public void setOrdersEntityList(List<OrdersEntity> ordersEntityList) {
+        this.ordersEntityList = ordersEntityList;
     }
 
     public void setId(long id) {
