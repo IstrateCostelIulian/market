@@ -11,9 +11,6 @@ import java.util.Date;
 
 public class StartApp {
 
-
-
-
     public static void main(String[] args) throws InterruptedException, SQLException {
 
         System.out.println("This is the start of the PT Spring Hibernate application");
@@ -22,8 +19,8 @@ public class StartApp {
 
         AccountingDAO accountingDAO = context.getBean(AccountingDAO.class);
 
-        AccountingEntity accountingEntity = new AccountingEntity(2.5 , 550, 800,  new Date());
-        accountingDAO.save(accountingEntity);
+      /*  AccountingEntity accountingEntity = new AccountingEntity(2.5 , 550, 800,  new Date());
+        accountingDAO.save(accountingEntity);*/
 
         context.close();
     }

@@ -1,5 +1,6 @@
 package org.internship.market.database.dao.impl;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.entity.AccountingEntity;
@@ -14,6 +15,12 @@ public class AccountingDAOImpl implements AccountingDAO {
 
     @Override
     public void save(AccountingEntity accountingEntity) {
-        sessionFactory.openSession().save(accountingEntity);
+       Session session =  sessionFactory.openSession();
+       session.beginTransaction();
+       session.save(accountingEntity);
+       session.getTransaction().commit();
+       session.close();
     }
+
+
 }

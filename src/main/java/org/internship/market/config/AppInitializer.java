@@ -1,5 +1,6 @@
 package org.internship.market.config;
 
+import org.internship.market.controller.AccountingController;
 import org.internship.market.controller.RawMaterialController;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -12,7 +13,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{RawMaterialController.class};
+        return new Class[]{RawMaterialController.class, AccountingController.class};
     }
 
     @Override

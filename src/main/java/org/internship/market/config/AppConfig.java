@@ -1,6 +1,7 @@
 package org.internship.market.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.internship.market.controller.AccountingController;
 import org.internship.market.database.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -47,8 +48,8 @@ public class AppConfig {
         props.put("hibernate.dialect",env.getProperty("hibernate.dialect"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         factoryBean.setHibernateProperties(props);
-        //factoryBean.setAnnotatedClasses(Employee.class);
-        factoryBean.setAnnotatedClasses(AccountingEntity.class,CustomerEntity.class,InventoriesEntity.class,OrdersEntity.class,ProductEntity.class,RawMaterialEntity.class);
+        factoryBean.setAnnotatedClasses(AccountingEntity.class,CustomerEntity.class,InventoriesEntity.class,
+                OrdersEntity.class,ProductEntity.class,RawMaterialEntity.class);
         return factoryBean;
     }
 
