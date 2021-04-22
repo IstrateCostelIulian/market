@@ -16,7 +16,7 @@ public class RawMaterialEntity {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "rawMaterialEntity")
+    @OneToMany(mappedBy = "rawMaterialEntity", fetch = FetchType.LAZY)
     private List<ProductEntity> productEntities;
 
     @Column(name = "price", nullable = false, precision = 2)

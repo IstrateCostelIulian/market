@@ -1,7 +1,6 @@
 package org.internship.market.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.internship.market.controller.AccountingController;
 import org.internship.market.database.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -9,6 +8,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -17,10 +17,11 @@ import java.util.Properties;
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 @ComponentScans(value = {
-        @ComponentScan("org.internship.market.controller"),
         @ComponentScan("org.internship.market.services"),
-        @ComponentScan("org.internship.market.database")
+        @ComponentScan("org.internship.market.database"),
+        @ComponentScan("org.internship.market.controller")
 })
+@EnableWebMvc
 public class AppConfig {
 
     @Autowired
@@ -43,13 +44,13 @@ public class AppConfig {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(getDataSource());
 
-        Properties props=new Properties();
+        Properties props = new Properties();
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        props.put("hibernate.dialect",env.getProperty("hibernate.dialect"));
+        props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         factoryBean.setHibernateProperties(props);
-        factoryBean.setAnnotatedClasses(AccountingEntity.class,CustomerEntity.class,InventoriesEntity.class,
-                OrdersEntity.class,ProductEntity.class,RawMaterialEntity.class);
+        factoryBean.setAnnotatedClasses(AccountingEntity.class, CustomerEntity.class, InventoriesEntity.class,
+                OrdersEntity.class, ProductEntity.class, RawMaterialEntity.class);
         return factoryBean;
     }
 
