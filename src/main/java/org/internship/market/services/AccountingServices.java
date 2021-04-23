@@ -7,4 +7,8 @@ public interface AccountingServices {
     void insert(AccountingDTO accountingDTO);
 
     AccountingDTO getAccountingById(long id);
+
+    void deleteAccountingById(long id);
+
+    void updateCosts(double costs, long id);
 }

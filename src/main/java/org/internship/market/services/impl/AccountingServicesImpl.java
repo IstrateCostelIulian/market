@@ -24,6 +24,7 @@ public class AccountingServicesImpl implements AccountingServices {
         accountingDAO.save(accountingEntity);
     }
 
+    @Override
     public AccountingDTO getAccountingById(long id) {
         AccountingDTO result = new AccountingDTO();
         AccountingEntity accountingEntity = accountingDAO.getAccountingById(id);
@@ -33,4 +34,16 @@ public class AccountingServicesImpl implements AccountingServices {
         result.setIncome(accountingEntity.getIncome());
         return result;
     }
+
+    @Override
+    public void deleteAccountingById(long id){
+        accountingDAO.deleteAccountingById(id);
+    }
+
+    @Override
+    public void updateCosts(double costs, long id) {
+        accountingDAO.updateCosts(costs,id);
+    }
+
+
 }

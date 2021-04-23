@@ -5,10 +5,13 @@ import java.util.Date;
 
 @Entity
 @Table(name = "accounting")
-@NamedQueries({ @NamedQuery(name = "HQL_GET_BY_ID",
-        query = "from AccountingEntity where id=:id") })
-@NamedNativeQueries({ @NamedNativeQuery(name = "GET_BY_ID",
-        query = "select id, incomme, costs, economic_balance,date from accounting")
+@NamedQueries({
+        @NamedQuery(name = "HQL_GET_BY_ID",
+                query = "from AccountingEntity where id=:id"),
+        @NamedQuery(name = "deleteAccountingById",
+                query = "delete AccountingEntity accountingEntity  where id=:id"),
+        @NamedQuery(name = "updateCosts",
+                query = "update AccountingEntity accountEntity set costs=:costs where id=:id")
 })
 public class AccountingEntity {
 

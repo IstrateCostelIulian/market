@@ -2,7 +2,6 @@ package org.internship.market.database.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.entity.AccountingEntity;
@@ -27,15 +26,37 @@ public class AccountingDAOImpl implements AccountingDAO {
 
     public AccountingEntity getAccountingById(long id) {
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-
+        session.beginTransaction();
         //HQL Named Query Example
         Query<AccountingEntity> query = session.createNamedQuery("HQL_GET_BY_ID");
         query.setParameter("id", id);
         AccountingEntity accountingEntity = query.uniqueResult();
-        tx.commit();
+        session.getTransaction().commit();
         session.close();
         return accountingEntity;
+    }
+
+    @Override
+    public void deleteAccountingById(long id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<AccountingEntity> query = session.createNamedQuery("deleteAccountingById");
+        query.setParameter("id", id);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void updateCosts(double costs, long id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<AccountingEntity> query = session.createNamedQuery("updateCosts");
+        query.setParameter("costs",costs);
+        query.setParameter("id", id);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
     }
 
 
