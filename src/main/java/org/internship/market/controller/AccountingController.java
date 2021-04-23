@@ -2,15 +2,10 @@ package org.internship.market.controller;
 
 import org.internship.market.dto.AccountingDTO;
 import org.internship.market.services.AccountingServices;
-import org.internship.market.services.impl.AccountingServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(name = "/accounting")
 public class AccountingController {
 
     private final AccountingServices accountingServices;
@@ -20,10 +15,19 @@ public class AccountingController {
         this.accountingServices = accountingServices;
     }
 
+    @GetMapping("/accounting/ping")
+    public String ping() {
+        return "Ping";
+    }
 
-    @PostMapping
+    @PostMapping("/accounting")
     public void insertAccounting(@RequestBody AccountingDTO accountingDTO) {
         accountingServices.insert(accountingDTO);
+    }
+
+    @GetMapping("/accounting/{id}")
+    public AccountingDTO getById(@PathVariable long id) {
+        return accountingServices.getAccountingById(id);
     }
 
 

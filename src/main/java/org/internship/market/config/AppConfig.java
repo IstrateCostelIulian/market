@@ -9,6 +9,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -22,7 +23,7 @@ import java.util.Properties;
         @ComponentScan("org.internship.market.controller")
 })
 @EnableWebMvc
-public class AppConfig {
+public class AppConfig implements WebMvcConfigurer {
 
     @Autowired
     private Environment env;

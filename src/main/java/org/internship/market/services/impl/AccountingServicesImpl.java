@@ -23,4 +23,14 @@ public class AccountingServicesImpl implements AccountingServices {
         accountingEntity.setDate(accountingDTO.getDate());
         accountingDAO.save(accountingEntity);
     }
+
+    public AccountingDTO getAccountingById(long id) {
+        AccountingDTO result = new AccountingDTO();
+        AccountingEntity accountingEntity = accountingDAO.getAccountingById(id);
+        result.setCosts(accountingEntity.getCosts());
+        result.setDate(accountingEntity.getDate());
+        result.setEconomic_balance(accountingEntity.getEconomic_balance());
+        result.setIncome(accountingEntity.getIncome());
+        return result;
+    }
 }

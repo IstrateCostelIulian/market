@@ -1,9 +1,12 @@
 package org.internship.market.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class AccountingDTO {
 
+    @JsonProperty("income")
     private double income;
     private double costs;
     private double economic_balance;

@@ -5,6 +5,11 @@ import java.util.Date;
 
 @Entity
 @Table(name = "accounting")
+@NamedQueries({ @NamedQuery(name = "HQL_GET_BY_ID",
+        query = "from AccountingEntity where id=:id") })
+@NamedNativeQueries({ @NamedNativeQuery(name = "GET_BY_ID",
+        query = "select id, incomme, costs, economic_balance,date from accounting")
+})
 public class AccountingEntity {
 
     @Id
