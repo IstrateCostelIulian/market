@@ -14,7 +14,6 @@ import java.util.Date;
                 query = "update AccountingEntity accountEntity set costs=:costs where id=:id")
 })
 public class AccountingEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
