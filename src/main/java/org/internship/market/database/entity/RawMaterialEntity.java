@@ -2,7 +2,13 @@ package org.internship.market.database.entity;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+
+@NamedQueries(
+        @NamedQuery(
+                name = "findRawMaterialByName",
+                query = "select rawMaterialEntity from  RawMaterialEntity rawMaterialEntity where name=:name"
+        )
+)
 
 @Entity
 @Table(name = "raw_materials")

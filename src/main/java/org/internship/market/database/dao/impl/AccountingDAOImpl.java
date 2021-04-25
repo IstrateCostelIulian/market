@@ -7,6 +7,7 @@ import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.entity.AccountingEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository

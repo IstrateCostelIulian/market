@@ -2,53 +2,47 @@ package org.internship.market.database.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.internship.market.database.dao.RawMaterialDAO;
-import org.internship.market.database.entity.RawMaterialEntity;
+import org.internship.market.database.dao.ProductDAO;
+import org.internship.market.database.entity.ProductEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-
 @Repository
-@Transactional
-public class RawMaterialDAOImpl implements RawMaterialDAO {
+public class ProductDAOImpl implements ProductDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-
     @Override
-    public List<RawMaterialEntity> getAllMaterial() {
-        return null;
-    }
-
-    @Override
-    public RawMaterialEntity getRawMaterialByName(String name) {
+    public ProductEntity findProductByName(String name) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query<RawMaterialEntity> query = session.createNamedQuery("findRawMaterialByName");
+        Query<ProductEntity> query = session.createNamedQuery("findProductByName");
         query.setParameter("name", name);
-        RawMaterialEntity responseEntity = query.uniqueResult();
+        ProductEntity productEntity = query.uniqueResult();
         session.getTransaction().commit();
         session.close();
-        return  responseEntity;
+        return productEntity;
     }
 
     @Override
-    public void createRawMaterial(RawMaterialEntity rawMaterialEntity) {
+    public void createProduct(ProductEntity productEntity) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(rawMaterialEntity);
+        session.save(productEntity);
         session.getTransaction().commit();
         session.close();
     }
 
     @Override
-    public void updateRawMaterial(String name, double newPriceValue) {
+    public void deleteProductByName(String name) {
+
+    }
+
+    @Override
+    public void updateProduct(double price, double commercial_excess) {
 
     }
 }

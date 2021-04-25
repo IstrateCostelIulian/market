@@ -4,6 +4,12 @@ package org.internship.market.database.entity;
 import javax.persistence.*;
 import java.util.List;
 
+@NamedQueries(
+        @NamedQuery(
+                name = "findProductByName",
+                query = "from ProductEntity where name=:name"
+        )
+)
 @Entity
 @Table(name = "products")
 public class ProductEntity {
@@ -12,8 +18,11 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(targetEntity = RawMaterialEntity.class)
-    @JoinColumn(name = "materials_for_product_id", referencedColumnName = "id" ,nullable = false)
+    @Column(name = "name")
+    private String name;
+
+    @ManyToOne(targetEntity = RawMaterialEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "materials_for_product_id", referencedColumnName = "id", nullable = false)
     private RawMaterialEntity rawMaterialEntity;
 
     @Column(name = "commercial_excess")
@@ -25,14 +34,16 @@ public class ProductEntity {
     @OneToMany(mappedBy = "productEntity")
     private List<OrdersEntity> ordersEntityList;
 
-
-    public ProductEntity(RawMaterialEntity rawMaterialEntity, double commercial_excess, double price) {
-        this.rawMaterialEntity = rawMaterialEntity;
-        this.commercial_excess = commercial_excess;
-        this.price = price;
+    public String getName() {
+        return name;
     }
 
-    public ProductEntity() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRawMaterialEntity(RawMaterialEntity rawMaterialEntity) {
+        this.rawMaterialEntity = rawMaterialEntity;
     }
 
     public List<OrdersEntity> getOrdersEntityList() {

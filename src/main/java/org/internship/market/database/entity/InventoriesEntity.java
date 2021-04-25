@@ -12,10 +12,8 @@ public class InventoriesEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
     @Column(name = "quantity", nullable = false)
     private int quantity;
-
 
     public long getId() {
         return id;

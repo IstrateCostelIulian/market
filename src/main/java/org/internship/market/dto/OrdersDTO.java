@@ -1,49 +1,16 @@
-package org.internship.market.database.entity;
+package org.internship.market.dto;
 
-import javax.persistence.*;
+import org.internship.market.database.entity.CustomerEntity;
+import org.internship.market.database.entity.ProductEntity;
 
-@Entity
-@Table(name = "orders")
-public class OrdersEntity {
+public class OrdersDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @Column(name = "command_number")
     private int command_number;
-    @Column(name = "amount")
     private int amount;
-    @Column(name = "price")
     private  double price;
-    @Column(name = "status")
     private String status;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id")
     private CustomerEntity customerEntity;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
     private ProductEntity productEntity;
-
-    public OrdersEntity(int command_number, int amount, double price, String status, CustomerEntity customerEntity,
-                        ProductEntity productEntity) {
-        this.command_number = command_number;
-        this.amount = amount;
-        this.price = price;
-        this.status = status;
-        this.customerEntity = customerEntity;
-        this.productEntity = productEntity;
-    }
-
-    public OrdersEntity() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public int getCommand_number() {
         return command_number;
