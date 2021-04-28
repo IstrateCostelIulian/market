@@ -11,7 +11,9 @@ import java.util.Date;
         @NamedQuery(name = "deleteAccountingById",
                 query = "delete AccountingEntity accountingEntity  where id=:id"),
         @NamedQuery(name = "updateCosts",
-                query = "update AccountingEntity accountEntity set costs=:costs where id=:id")
+                query = "update AccountingEntity accountEntity set costs=:costs where id=:id"),
+        @NamedQuery(name="getAll",
+                query = "from AccountingEntity")
 })
 public class AccountingEntity {
     @Id

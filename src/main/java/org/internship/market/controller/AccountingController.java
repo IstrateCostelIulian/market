@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class AccountingController {
 
@@ -23,27 +25,32 @@ public class AccountingController {
         return ResponseEntity.ok("Entity inserted with success !");
     }
 
-    @GetMapping(path = "/getById")
-    public AccountingDTO getById(@RequestParam long id) {
+    @GetMapping(path = "/accounting")
+    public List<AccountingDTO> geAll() {
+        return accountingServices.getAllAccounting();
+    }
+
+    @GetMapping(path = "/accounting/{id}")
+    public AccountingDTO getById(@PathVariable long id) {
         return accountingServices.getAccountingById(id);
     }
 
-    @DeleteMapping(path = "/deleteById")
-    public ResponseEntity deleteAccountingById(@RequestParam long id){
-        if(accountingServices.getAccountingById(id) == null){
+    @DeleteMapping(path = "/accounting/{id}")
+    public ResponseEntity deleteAccountingById(@PathVariable long id) {
+        if (accountingServices.getAccountingById(id) == null) {
             return ResponseEntity.ok("Entity not found !");
-        }else {
+        } else {
             accountingServices.deleteAccountingById(id);
             return ResponseEntity.ok("Entity deleted with success !");
         }
     }
 
-    @PutMapping(path = "/updateCosts")
-    public ResponseEntity updateCosts(@RequestParam double costs , @RequestParam long id){
-        if(accountingServices.getAccountingById(id) == null){
+    @PutMapping(path = "/accounting/{id}")
+    public ResponseEntity updateCosts(@RequestParam double costs, @PathVariable long id) {
+        if (accountingServices.getAccountingById(id) == null) {
             return ResponseEntity.ok("The entity not found");
-        }else{
-            accountingServices.updateCosts(costs,id);
+        } else {
+            accountingServices.updateCosts(costs, id);
             return ResponseEntity.ok("Updated with success !");
         }
     }

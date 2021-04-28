@@ -20,6 +20,8 @@
         <servlets.version>3.1.0</servlets.version>
         <jsp.version>2.3.1</jsp.version>
         <hsqldb.version>1.8.0.10</hsqldb.version>
+        <lombok.version>1.18.12</lombok.version>
+        <mapstruct.version>1.4.0.Beta3</mapstruct.version>
     </properties>
 
     <dependencies>
@@ -132,7 +134,21 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
         </dependency>
-
+        <!-- Mapping -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <!-- Mapping -->
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Lombok -->
     </dependencies>
 
     <build>
@@ -149,6 +165,18 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
@@ -160,6 +188,7 @@
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
 
     <profiles>
@@ -194,4 +223,6 @@
             </build>
         </profile>
     </profiles>
+
+
 </project>

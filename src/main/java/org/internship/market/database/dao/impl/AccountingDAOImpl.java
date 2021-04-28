@@ -7,7 +7,8 @@ import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.entity.AccountingEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Repository
@@ -37,6 +38,16 @@ public class AccountingDAOImpl implements AccountingDAO {
         return accountingEntity;
     }
 
+    public List<AccountingEntity> getAll() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<AccountingEntity> query = session.createNamedQuery("getAll");
+        List<AccountingEntity> allEntities = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return allEntities;
+    }
+
     @Override
     public void deleteAccountingById(long id) {
         Session session = sessionFactory.openSession();
@@ -53,7 +64,7 @@ public class AccountingDAOImpl implements AccountingDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query<AccountingEntity> query = session.createNamedQuery("updateCosts");
-        query.setParameter("costs",costs);
+        query.setParameter("costs", costs);
         query.setParameter("id", id);
         query.executeUpdate();
         session.getTransaction().commit();
