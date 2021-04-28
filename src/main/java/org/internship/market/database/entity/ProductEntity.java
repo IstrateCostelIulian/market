@@ -4,12 +4,27 @@ package org.internship.market.database.entity;
 import javax.persistence.*;
 import java.util.List;
 
-@NamedQueries(
+@NamedQueries({
         @NamedQuery(
                 name = "findProductByName",
                 query = "from ProductEntity where name=:name"
+        ),
+
+        @NamedQuery(
+                name = "getAllProducts",
+                query = "from ProductEntity"
+        ),
+
+        @NamedQuery(
+                name = "deleteProductByName",
+                query = "delete ProductEntity productEntity where name=:name"
+        ),
+
+        @NamedQuery(
+                name = "updateProductPrice",
+                query = "update ProductEntity productEntity set price=:price where name=:name"
         )
-)
+})
 @Entity
 @Table(name = "products")
 public class ProductEntity {

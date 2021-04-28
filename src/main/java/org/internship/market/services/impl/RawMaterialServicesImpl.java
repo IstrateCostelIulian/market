@@ -4,6 +4,7 @@ import org.internship.market.database.dao.RawMaterialDAO;
 import org.internship.market.database.entity.RawMaterialEntity;
 import org.internship.market.dto.RawMaterialDTO;
 import org.internship.market.services.RawMaterialServices;
+import org.internship.market.services.mapper.RawMaterialMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +16,17 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     @Autowired
     RawMaterialDAO rawMaterialDAO;
 
-    @Override
-    public List<RawMaterialEntity> listOfMaterials() {
-        return null;
-    }
+    @Autowired
+    RawMaterialMapper mapper;
+
 
     @Override
     public void insertRawMaterials(RawMaterialDTO rawMaterialDTO) {
         RawMaterialEntity foundRawMaterialEntity = rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName());
-        if(foundRawMaterialEntity == null){
-            RawMaterialEntity rawMaterialEntity = new RawMaterialEntity();
-            rawMaterialEntity.setName(rawMaterialDTO.getName());
-            rawMaterialEntity.setPrice(rawMaterialDTO.getPrice());
+        if (foundRawMaterialEntity == null) {
+            RawMaterialEntity rawMaterialEntity = mapper.dtoToEntity(rawMaterialDTO);
             rawMaterialDAO.createRawMaterial(rawMaterialEntity);
-        }else{
+        } else {
             rawMaterialDAO.createRawMaterial(foundRawMaterialEntity);
         }
     }
@@ -36,9 +34,23 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     @Override
     public RawMaterialDTO findRawMaterialsByName(String name) {
         RawMaterialEntity rawMaterialEntity = rawMaterialDAO.getRawMaterialByName(name);
-        RawMaterialDTO rawMaterialDTO = new RawMaterialDTO();
-        rawMaterialDTO.setName(rawMaterialEntity.getName());
-        rawMaterialDTO.setPrice(rawMaterialEntity.getPrice());
-        return rawMaterialDTO;
+        return mapper.entityToDto(rawMaterialEntity);
+    }
+
+
+    @Override
+    public List<RawMaterialDTO> listOfMaterials() {
+        List<RawMaterialEntity> rawMaterialEntities = rawMaterialDAO.getAllMaterial();
+        return mapper.entityToDtoS(rawMaterialEntities);
+    }
+
+    @Override
+    public void deleteRawMaterialByName(String name) {
+
+    }
+
+    @Override
+    public void updatePrice(double price, String name) {
+
     }
 }

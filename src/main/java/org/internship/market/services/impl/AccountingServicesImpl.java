@@ -2,7 +2,9 @@ package org.internship.market.services.impl;
 
 import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.entity.AccountingEntity;
+import org.internship.market.database.entity.ProductEntity;
 import org.internship.market.dto.AccountingDTO;
+import org.internship.market.dto.ProductDTO;
 import org.internship.market.services.AccountingServices;
 import org.internship.market.services.mapper.AccountingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
