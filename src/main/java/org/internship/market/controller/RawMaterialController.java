@@ -1,6 +1,7 @@
 package org.internship.market.controller;
 
 import org.internship.market.database.entity.RawMaterialEntity;
+import org.internship.market.dto.RawMaterialDTO;
 import org.internship.market.services.RawMaterialServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class RawMaterialController {
     }
 
     @GetMapping(value = "/raw")
-    public List<RawMaterialEntity> allMaterials() {
+    public List<RawMaterialDTO> allMaterials() {
         System.out.println("allMaterials");
         return services.listOfMaterials();
     }
