@@ -9,13 +9,16 @@ import java.util.List;
 
 public interface RawMaterialServices {
 
-    List<RawMaterialDTO> listOfMaterials();
+    List<RawMaterialDTO> returnListOfMaterials();
 
     void insertRawMaterials(RawMaterialDTO rawMaterialDTO);
 
     RawMaterialDTO findRawMaterialsByName(String name);
 
-    void deleteRawMaterialByName(String name);
+    void deleteRawMaterialsByName(String name);
 
-    void updatePrice(double price, String name);
+    void updateRawMaterialsPrice(double price, String name);
+
+    void updateRawMaterialsQuantity(double quantity, String name);
+
 }

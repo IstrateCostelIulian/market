@@ -26,8 +26,6 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
         if (foundRawMaterialEntity == null) {
             RawMaterialEntity rawMaterialEntity = mapper.dtoToEntity(rawMaterialDTO);
             rawMaterialDAO.createRawMaterial(rawMaterialEntity);
-        } else {
-            rawMaterialDAO.createRawMaterial(foundRawMaterialEntity);
         }
     }
 
@@ -37,20 +35,30 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
         return mapper.entityToDto(rawMaterialEntity);
     }
 
+    @Override
+    public void deleteRawMaterialsByName(String name) {
+        rawMaterialDAO.deleteRawMaterialsByName(name);
+    }
 
     @Override
-    public List<RawMaterialDTO> listOfMaterials() {
+    public void updateRawMaterialsPrice(double price, String name) {
+        rawMaterialDAO.updateRawMaterialPrice(name, price);
+    }
+
+    @Override
+    public void updateRawMaterialsQuantity(double quantity, String name) {
+        RawMaterialEntity foundRawMaterial = rawMaterialDAO.getRawMaterialByName(name);
+        if(foundRawMaterial != null){
+            quantity += foundRawMaterial.getQuantity();
+            rawMaterialDAO.updateRawMaterialQuantity(quantity, name);
+        }
+    }
+
+
+    @Override
+    public List<RawMaterialDTO> returnListOfMaterials() {
         List<RawMaterialEntity> rawMaterialEntities = rawMaterialDAO.getAllMaterial();
         return mapper.entityToDtoS(rawMaterialEntities);
     }
 
-    @Override
-    public void deleteRawMaterialByName(String name) {
-
-    }
-
-    @Override
-    public void updatePrice(double price, String name) {
-
-    }
 }

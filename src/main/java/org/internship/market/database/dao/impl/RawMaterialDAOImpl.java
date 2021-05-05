@@ -2,7 +2,6 @@ package org.internship.market.database.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.internship.market.database.dao.RawMaterialDAO;
 import org.internship.market.database.entity.RawMaterialEntity;
@@ -35,7 +34,7 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
         RawMaterialEntity responseEntity = query.uniqueResult();
         session.getTransaction().commit();
         session.close();
-        return  responseEntity;
+        return responseEntity;
     }
 
     @Override
@@ -48,7 +47,37 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
     }
 
     @Override
-    public void updateRawMaterial(String name, double newPriceValue) {
-
+    public void updateRawMaterialPrice(String name, double newPriceValue) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<RawMaterialEntity> query = session.createNamedQuery("updateRawMaterialsPrice");
+        query.setParameter("name", name);
+        query.setParameter("price", newPriceValue);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
     }
+
+    @Override
+    public void updateRawMaterialQuantity(double quantity, String name) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<RawMaterialEntity> query = session.createNamedQuery("updateRawMaterialsQuantity");
+        query.setParameter("name", name);
+        query.setParameter("price", quantity);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void deleteRawMaterialsByName(String name) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<RawMaterialEntity> query = session.createNamedQuery("deleteRawMaterialsByName");
+        query.setParameter("name", name);
+        session.getTransaction().commit();
+        session.close();
+    }
+
 }

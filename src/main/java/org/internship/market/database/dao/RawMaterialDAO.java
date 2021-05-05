@@ -12,6 +12,11 @@ public interface RawMaterialDAO {
 
     void createRawMaterial(RawMaterialEntity rawMaterialEntity);
 
-    void updateRawMaterial(String name, double newPriceValue);
+    void updateRawMaterialPrice(String name, double newPriceValue);
+
+    void updateRawMaterialQuantity(double quantity, String name);
+
+    void deleteRawMaterialsByName(String name);
+
 
 }

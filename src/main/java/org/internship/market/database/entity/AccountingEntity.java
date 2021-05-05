@@ -29,7 +29,7 @@ public class AccountingEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
-    @Column(name = "incomme", nullable = false, precision = 2)
+    @Column(name = "income", nullable = false, precision = 2)
     private double income;
     @Column(name = "costs", nullable = false, precision = 2)
     private double costs;

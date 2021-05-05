@@ -8,12 +8,28 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.List;
 
-@NamedQueries(
+@NamedQueries({
         @NamedQuery(
                 name = "findRawMaterialByName",
                 query = "select rawMaterialEntity from  RawMaterialEntity rawMaterialEntity where name=:name"
+        ),
+        @NamedQuery(
+                name = "findAllRawMaterials",
+                query = "from RawMaterialEntity"
+        ),
+        @NamedQuery(
+                name = "updateRawMaterialsPrice",
+                query = "update RawMaterialEntity rawMaterialsEntity set price=:price where name=:name"
+        ),
+        @NamedQuery(
+                name = "updateRawMaterialQuantity",
+                query = "update RawMaterialEntity rawMaterialsEntity set quantity=:quantity where name=:name"
+        ),
+        @NamedQuery(
+                name = "deleteRawMaterialByName",
+                query = "delete RawMaterialEntity rawMaterialsEntity where name=:name"
         )
-)
+})
 @Getter
 @Setter
 @ToString
@@ -40,6 +56,6 @@ public class RawMaterialEntity {
     private double quantity;
 
     @Column(name = "stock")
-    private  int stock;
+    private int stock;
 
 }
