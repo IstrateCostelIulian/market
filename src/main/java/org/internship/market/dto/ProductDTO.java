@@ -17,5 +17,6 @@ public class ProductDTO {
     private List<RawMaterialDTO> rawMaterialsList;
     private double commercial_excess;
     private double price;
+    private int stock;
 
 }

@@ -51,7 +51,7 @@ public class AppConfig implements WebMvcConfigurer {
         props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         factoryBean.setHibernateProperties(props);
-        factoryBean.setAnnotatedClasses(AccountingEntity.class, CustomerEntity.class, InventoriesEntity.class,
+        factoryBean.setAnnotatedClasses(AccountingEntity.class, CustomerEntity.class,
                 OrdersEntity.class, ProductEntity.class, RawMaterialEntity.class);
         return factoryBean;
     }

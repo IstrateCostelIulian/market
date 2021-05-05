@@ -39,6 +39,7 @@ public class RawMaterialEntity {
     @Column(name = "quantity")
     private double quantity;
 
-    //stock
+    @Column(name = "stock")
+    private  int stock;
 
 }

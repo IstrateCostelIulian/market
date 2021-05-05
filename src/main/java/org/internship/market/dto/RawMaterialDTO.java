@@ -14,5 +14,6 @@ public class RawMaterialDTO {
     private String name;
     private double price; // for 1 gram
     private double quantity;
+    private int stock;
 
 }

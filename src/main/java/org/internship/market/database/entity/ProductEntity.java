@@ -59,6 +59,9 @@ public class ProductEntity {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "stock")
+    private int stock;
+
     @OneToMany(mappedBy = "productEntity")
     private List<OrdersEntity> ordersEntityList;
 }

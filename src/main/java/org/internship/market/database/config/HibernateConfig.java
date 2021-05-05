@@ -22,7 +22,6 @@ public class HibernateConfig {
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
         factoryBean.setAnnotatedClasses(AccountingEntity.class);
         factoryBean.setAnnotatedClasses(CustomerEntity.class);
-        factoryBean.setAnnotatedClasses(InventoriesEntity.class);
         factoryBean.setAnnotatedClasses(OrdersEntity.class);
         factoryBean.setAnnotatedClasses(ProductEntity.class);
         factoryBean.setAnnotatedClasses(RawMaterialEntity.class);
