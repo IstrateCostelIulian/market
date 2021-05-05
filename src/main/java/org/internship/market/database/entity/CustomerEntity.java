@@ -1,8 +1,17 @@
 package org.internship.market.database.entity;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "customers")
 public class CustomerEntity {
@@ -24,70 +33,4 @@ public class CustomerEntity {
     @OneToMany(mappedBy = "customerEntity")
     private List<OrdersEntity> ordersEntityList;
 
-    public CustomerEntity(String name, String surname, String address, String phone_number, String email_address) {
-        this.name = name;
-        this.surname = surname;
-        this.address = address;
-        this.phone_number = phone_number;
-        this.email_address = email_address;
-    }
-
-    public CustomerEntity() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public List<OrdersEntity> getOrdersEntityList() {
-        return ordersEntityList;
-    }
-
-    public void setOrdersEntityList(List<OrdersEntity> ordersEntityList) {
-        this.ordersEntityList = ordersEntityList;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
-
-    public String getEmail_address() {
-        return email_address;
-    }
-
-    public void setEmail_address(String email_address) {
-        this.email_address = email_address;
-    }
 }

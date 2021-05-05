@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
@@ -35,6 +37,18 @@ public class ProductDAOImpl implements ProductDAO {
         session.getTransaction().commit();
         session.close();
     }
+
+    @Override
+    public List<ProductEntity> getAllProducts() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<ProductEntity> getList = session.createNamedQuery("getAllProducts");
+        List<ProductEntity> productList = getList.list();
+        session.getTransaction().commit();
+        session.close();
+        return productList;
+    }
+
 
     @Override
     public void deleteProductByName(String name) {

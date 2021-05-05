@@ -1,5 +1,10 @@
 package org.internship.market.database.entity;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,7 +14,10 @@ import java.util.List;
                 query = "select rawMaterialEntity from  RawMaterialEntity rawMaterialEntity where name=:name"
         )
 )
-
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "raw_materials")
 public class RawMaterialEntity {
@@ -22,50 +30,15 @@ public class RawMaterialEntity {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "rawMaterialEntity", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "rawMaterialsList", fetch = FetchType.LAZY)
     private List<ProductEntity> productEntities;
 
     @Column(name = "price", nullable = false, precision = 2)
-    private double price;
+    private double price; // for 1 gram
 
+    @Column(name = "quantity")
+    private double quantity;
 
-    public RawMaterialEntity(String name, double price) {
-        this.name = name;
-        this.price = price;
-    }
+    //stock
 
-    public RawMaterialEntity() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<ProductEntity> getProductEntities() {
-        return productEntities;
-    }
-
-    public void setProductEntities(List<ProductEntity> productEntities) {
-        this.productEntities = productEntities;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }

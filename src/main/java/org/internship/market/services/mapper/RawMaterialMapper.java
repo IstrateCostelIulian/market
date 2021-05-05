@@ -1,6 +1,8 @@
 package org.internship.market.services.mapper;
 
+import org.internship.market.database.entity.ProductEntity;
 import org.internship.market.database.entity.RawMaterialEntity;
+import org.internship.market.dto.ProductDTO;
 import org.internship.market.dto.RawMaterialDTO;
 import org.mapstruct.Mapper;
 
@@ -14,5 +16,7 @@ public interface RawMaterialMapper {
     RawMaterialDTO entityToDto(RawMaterialEntity entity);
 
     List<RawMaterialDTO> entityToDtoS(List<RawMaterialEntity> entities);
+
+    List<RawMaterialEntity> dtoSToEntity(List<RawMaterialDTO> rawMaterialDTOList);
 
 }

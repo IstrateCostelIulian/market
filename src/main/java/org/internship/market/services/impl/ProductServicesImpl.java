@@ -5,6 +5,7 @@ import org.internship.market.database.entity.ProductEntity;
 import org.internship.market.dto.ProductDTO;
 import org.internship.market.services.ProductServices;
 import org.internship.market.services.mapper.ProductMapper;
+import org.internship.market.services.mapper.RawMaterialMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,29 +18,30 @@ public class ProductServicesImpl implements ProductServices {
     ProductDAO productDAO;
 
     @Autowired
-    ProductMapper mapper;
+    ProductMapper productMapper;
+
+    @Autowired
+    RawMaterialMapper materialMapper;
 
     @Override
     public void insertProduct(ProductDTO productDTO) {
         ProductEntity foundProduct = productDAO.findProductByName(productDTO.getName());
         if (foundProduct == null) {
-            ProductEntity productEntity = mapper.dtoToEntity(productDTO);
+            ProductEntity productEntity = productMapper.dtoToEntity(productDTO);
             productDAO.createProduct(productEntity);
-        } else {
-            productDAO.createProduct(foundProduct);
         }
     }
 
     @Override
     public ProductDTO findProductByName(String name) {
         ProductEntity productEntity = productDAO.findProductByName(name);
-        return mapper.entityToDTO(productEntity);
-
+        return productMapper.entityToDTO(productEntity);
     }
 
     @Override
     public List<ProductDTO> getAllProducts() {
-        return null;
+        List<ProductEntity> productEntityList = productDAO.getAllProducts();
+        return productMapper.entitiesToDtoS(productEntityList);
     }
 
     @Override

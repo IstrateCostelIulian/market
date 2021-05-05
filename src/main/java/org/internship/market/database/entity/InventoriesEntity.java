@@ -1,7 +1,16 @@
 package org.internship.market.database.entity;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Entity
 @Table(name =  "inventories")
 public class InventoriesEntity {
@@ -14,22 +23,5 @@ public class InventoriesEntity {
 
     @Column(name = "quantity", nullable = false)
     private int quantity;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
 
 }
