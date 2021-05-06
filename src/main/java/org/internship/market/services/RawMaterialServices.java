@@ -19,6 +19,6 @@ public interface RawMaterialServices {
 
     void updateRawMaterialsPrice(double price, String name);
 
-    void updateRawMaterialsQuantity(double quantity, String name);
+    void updateRawMaterialStock(double quantity, String name);
 
 }

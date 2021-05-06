@@ -14,7 +14,7 @@ public interface RawMaterialDAO {
 
     void updateRawMaterialPrice(String name, double newPriceValue);
 
-    void updateRawMaterialQuantity(double quantity, String name);
+    void updateRawMaterialsStock(double stock, String name);
 
     void deleteRawMaterialsByName(String name);
 

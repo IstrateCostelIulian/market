@@ -22,7 +22,11 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
 
     @Override
     public List<RawMaterialEntity> getAllMaterial() {
-        return null;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<RawMaterialEntity> query = session.createNamedQuery("getAllRawMaterials");
+        List<RawMaterialEntity> list = query.getResultList();
+        return list;
     }
 
     @Override
@@ -58,13 +62,14 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
         session.close();
     }
 
+
     @Override
-    public void updateRawMaterialQuantity(double quantity, String name) {
+    public void updateRawMaterialsStock(double stock, String name) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query<RawMaterialEntity> query = session.createNamedQuery("updateRawMaterialsQuantity");
+        Query<RawMaterialEntity> query = session.createNamedQuery("updateRawMaterialStock");
         query.setParameter("name", name);
-        query.setParameter("price", quantity);
+        query.setParameter("stock", stock);
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();

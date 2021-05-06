@@ -14,7 +14,7 @@ import java.util.List;
                 query = "select rawMaterialEntity from  RawMaterialEntity rawMaterialEntity where name=:name"
         ),
         @NamedQuery(
-                name = "findAllRawMaterials",
+                name = "getAllRawMaterials",
                 query = "from RawMaterialEntity"
         ),
         @NamedQuery(
@@ -22,8 +22,8 @@ import java.util.List;
                 query = "update RawMaterialEntity rawMaterialsEntity set price=:price where name=:name"
         ),
         @NamedQuery(
-                name = "updateRawMaterialQuantity",
-                query = "update RawMaterialEntity rawMaterialsEntity set quantity=:quantity where name=:name"
+                name = "updateRawMaterialStock",
+                query = "update RawMaterialEntity rawMaterialsEntity set stock=:stock where name=:name"
         ),
         @NamedQuery(
                 name = "deleteRawMaterialByName",
@@ -56,6 +56,6 @@ public class RawMaterialEntity {
     private double quantity;
 
     @Column(name = "stock")
-    private int stock;
+    private double stock;
 
 }

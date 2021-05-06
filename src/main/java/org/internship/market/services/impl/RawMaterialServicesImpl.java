@@ -17,22 +17,25 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     RawMaterialDAO rawMaterialDAO;
 
     @Autowired
-    RawMaterialMapper mapper;
+    RawMaterialMapper rawMaterialMapper;
 
 
     @Override
     public void insertRawMaterials(RawMaterialDTO rawMaterialDTO) {
         RawMaterialEntity foundRawMaterialEntity = rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName());
         if (foundRawMaterialEntity == null) {
-            RawMaterialEntity rawMaterialEntity = mapper.dtoToEntity(rawMaterialDTO);
+            RawMaterialEntity rawMaterialEntity = rawMaterialMapper.dtoToEntity(rawMaterialDTO);
             rawMaterialDAO.createRawMaterial(rawMaterialEntity);
+        } else {
+            double stock = rawMaterialDTO.getQuantity() + foundRawMaterialEntity.getStock();
+            rawMaterialDAO.updateRawMaterialsStock(stock, rawMaterialDTO.getName());
         }
     }
 
     @Override
     public RawMaterialDTO findRawMaterialsByName(String name) {
         RawMaterialEntity rawMaterialEntity = rawMaterialDAO.getRawMaterialByName(name);
-        return mapper.entityToDto(rawMaterialEntity);
+        return rawMaterialMapper.entityToDto(rawMaterialEntity);
     }
 
     @Override
@@ -46,11 +49,11 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     }
 
     @Override
-    public void updateRawMaterialsQuantity(double quantity, String name) {
+    public void updateRawMaterialStock(double quantity, String name) {
         RawMaterialEntity foundRawMaterial = rawMaterialDAO.getRawMaterialByName(name);
-        if(foundRawMaterial != null){
-            quantity += foundRawMaterial.getQuantity();
-            rawMaterialDAO.updateRawMaterialQuantity(quantity, name);
+        if (foundRawMaterial != null) {
+            quantity += foundRawMaterial.getStock();
+            rawMaterialDAO.updateRawMaterialsStock(quantity, name);
         }
     }
 
@@ -58,7 +61,7 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     @Override
     public List<RawMaterialDTO> returnListOfMaterials() {
         List<RawMaterialEntity> rawMaterialEntities = rawMaterialDAO.getAllMaterial();
-        return mapper.entityToDtoS(rawMaterialEntities);
+        return rawMaterialMapper.entityToDtoS(rawMaterialEntities);
     }
 
 }
