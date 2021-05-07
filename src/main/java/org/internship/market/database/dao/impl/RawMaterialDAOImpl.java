@@ -79,8 +79,9 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
     public void deleteRawMaterialsByName(String name) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query<RawMaterialEntity> query = session.createNamedQuery("deleteRawMaterialsByName");
+        Query<RawMaterialEntity> query = session.createNamedQuery("deleteRawMaterialByName");
         query.setParameter("name", name);
+        query.executeUpdate();
         session.getTransaction().commit();
         session.close();
     }

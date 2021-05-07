@@ -34,7 +34,32 @@ public class RawMaterialController {
     }
 
     @GetMapping
-    public List<RawMaterialDTO> geAll(){
+    public List<RawMaterialDTO> getAll(){
         return rawMaterialServices.returnListOfMaterials();
+    }
+
+    @GetMapping(path = "/{name}")
+    public RawMaterialDTO getMaterialByName(@RequestParam String name){
+       return rawMaterialServices.findRawMaterialsByName(name);
+    }
+
+    @DeleteMapping
+    public ResponseEntity delete(@RequestParam String name){
+        if(rawMaterialServices.findRawMaterialsByName(name) == null){
+            return ResponseEntity.ok("Material  doesn't exist");
+        }else {
+            rawMaterialServices.deleteRawMaterialsByName(name);
+            return ResponseEntity.ok("Material deleted");
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity update(@RequestParam double price, @RequestParam String name){
+        if(rawMaterialServices.findRawMaterialsByName(name)== null){
+            return ResponseEntity.ok("Material not found !");
+        }else{
+            rawMaterialServices.updateRawMaterialsPrice(price,name);
+            return ResponseEntity.ok("Price updated");
+        }
     }
 }
