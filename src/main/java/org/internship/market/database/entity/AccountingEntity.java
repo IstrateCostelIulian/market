@@ -34,8 +34,9 @@ public class AccountingEntity {
     @Column(name = "costs", nullable = false, precision = 2)
     private double costs;
     @Column(name = "economic_balance", nullable = false, precision = 2)
-    private double economic_balance;
+    private double economicBalance;
     @Column(name = "date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
 }

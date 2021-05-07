@@ -31,7 +31,6 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Bean
     public DataSource getDataSource() {
-        System.out.println("getDataSource");
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(env.getProperty("db.driver"));
         dataSource.setUrl(env.getProperty("db.url"));
@@ -42,12 +41,13 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
-        System.out.println("getSessionFactory");
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(getDataSource());
 
         Properties props = new Properties();
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+        props.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+        props.put("hibernate.use_sql_comments", env.getProperty("hibernate.use_sql_comments"));
         props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         factoryBean.setHibernateProperties(props);
@@ -58,7 +58,6 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Bean
     public HibernateTransactionManager getTransactionManager() {
-        System.out.println("getTransactionManager");
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(getSessionFactory().getObject());
         return transactionManager;

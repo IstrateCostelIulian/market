@@ -1,17 +1,17 @@
 package org.internship.market.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.internship.market.dto.RawMaterialDTO;
 import org.internship.market.services.RawMaterialServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/raw-materials")
+@Slf4j
 public class RawMaterialController {
 
 
@@ -23,8 +23,8 @@ public class RawMaterialController {
     }
 
 
-    @PostMapping(path = "/insertRawMaterials")
-    public ResponseEntity insertRawMaterials(@RequestBody RawMaterialDTO rawMaterialDTO) {
+    @PostMapping
+    public ResponseEntity insert(@RequestBody RawMaterialDTO rawMaterialDTO) {
         if (rawMaterialServices.findRawMaterialsByName(rawMaterialDTO.getName()) != null) {
             rawMaterialServices.updateRawMaterialStock(rawMaterialDTO.getQuantity(),rawMaterialDTO.getName());
             return ResponseEntity.ok("The material already exits, quantity updated !");
@@ -33,8 +33,8 @@ public class RawMaterialController {
         return ResponseEntity.ok("Material created !");
     }
 
-    @GetMapping(path = "/getRawMaterialsList")
-    public List<RawMaterialDTO> getRawMaterialsList(){
+    @GetMapping
+    public List<RawMaterialDTO> geAll(){
         return rawMaterialServices.returnListOfMaterials();
     }
 }
