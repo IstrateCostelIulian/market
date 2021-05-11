@@ -1,41 +1,73 @@
 package org.internship.market.controller;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.internship.market.dto.ProductDTO;
 import org.internship.market.services.ProductServices;
+import org.internship.market.services.RawMaterialServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
+@RequestMapping(value = "/product")
+@Slf4j
 public class ProductController {
 
     private final ProductServices productServices;
 
+    private final RawMaterialServices rawMaterialServices;
+
     @Autowired
-    public ProductController(ProductServices productServices) {
+    public ProductController(ProductServices productServices, RawMaterialServices rawMaterialServices) {
         this.productServices = productServices;
+        this.rawMaterialServices = rawMaterialServices;
     }
 
-    @PostMapping("/product")
+    //IN PROGRESS
+    @PostMapping
     public ResponseEntity insertProduct(@RequestBody ProductDTO productDTO) {
-        if (productServices.findProductByName(productDTO.getName()) == null) {
+        if (!productServices.checkAvailableStock(productDTO)) {
+            return ResponseEntity.ok("No rawMaterials available !");
+        } else if ((productServices.findProductByName(productDTO.getName()) == null) &&
+                (productServices.checkAvailableStock(productDTO))) {
             productServices.insertProduct(productDTO);
             return ResponseEntity.ok("Product " + productDTO.getName() + " created !!");
-        } else {
-            return ResponseEntity.ok("The product " + productDTO.getName() + " already exists");
+        } else if ((productServices.findProductByName(productDTO.getName()) != null) &&
+                (productServices.checkAvailableStock(productDTO))) {
+            productServices.updateStock(productDTO);
+            return ResponseEntity.ok("The product " + productDTO.getName() + " stock is updated");
         }
+        return null;
     }
 
-    @GetMapping(path = "/getAllProducts")
+    @GetMapping
     public List<ProductDTO> getAllProducts() {
         return productServices.getAllProducts();
     }
+
+    @DeleteMapping
+    public ResponseEntity delete(@RequestParam String name) {
+        if (productServices.findProductByName(name) == null) {
+            return ResponseEntity.ok("The product " + name + " doesn't exist !");
+        } else {
+            productServices.deleteProductByName(name);
+            return ResponseEntity.ok("The Product " + name + " was deleted !");
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity updatePrice(@RequestParam String name, @RequestParam double price) {
+        if (productServices.findProductByName(name) == null) {
+            return ResponseEntity.ok("The product " + name + " doesn't exist !");
+        } else {
+            productServices.updatePrice(price, name);
+            return ResponseEntity.ok("Price for " + name + " was updated !");
+        }
+    }
+
 
 }

@@ -52,11 +52,36 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void deleteProductByName(String name) {
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<ProductEntity> query = session.createNamedQuery("deleteProductByName");
+        query.setParameter("name", name);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
-    public void updateProduct(double price, double commercial_excess) {
+    public void updateProductPrice(double price, String name) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<ProductEntity> query = session.createNamedQuery("updateProductPrice");
+        query.setParameter("name", name);
+        query.setParameter("price", price);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
 
+    @Override
+    public void updateStock(int stock, String name) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<ProductEntity> query = session.createNamedQuery("updateStock");
+        query.setParameter("stock", stock);
+        query.setParameter("name", name);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
     }
 }

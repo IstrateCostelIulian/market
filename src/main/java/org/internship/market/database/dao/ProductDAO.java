@@ -14,6 +14,8 @@ public interface ProductDAO {
 
     void deleteProductByName(String name);
 
-    void updateProduct(double price, double commercial_excess);
+    void updateProductPrice(double price, String name);
+
+    void updateStock(int stock, String name);
 
 }

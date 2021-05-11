@@ -18,5 +18,4 @@ public class ProductDTO {
     private double commercial_excess;
     private double price;
     private int stock;
-
 }

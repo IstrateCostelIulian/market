@@ -16,4 +16,8 @@ public interface ProductServices {
 
     void updatePrice(double price, String name);
 
+    void updateStock(ProductDTO productDTO);
+
+    public  boolean checkAvailableStock(ProductDTO productDTO);
+
 }

@@ -28,6 +28,10 @@ import java.util.List;
         @NamedQuery(
                 name = "updateProductPrice",
                 query = "update ProductEntity productEntity set price=:price where name=:name"
+        ),
+        @NamedQuery(
+                name = "updateStock",
+                query = "update ProductEntity productEntity set stock=:stock where name=:name"
         )
 })
 @Getter
@@ -45,7 +49,7 @@ public class ProductEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "products_raw_materials",
             joinColumns = { @JoinColumn(name = "product_id") },
