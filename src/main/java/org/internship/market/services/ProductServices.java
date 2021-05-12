@@ -18,6 +18,6 @@ public interface ProductServices {
 
     void updateStock(ProductDTO productDTO);
 
-    public  boolean checkAvailableStock(ProductDTO productDTO);
+    boolean checkAvailableStock(ProductDTO productDTO);
 
 }

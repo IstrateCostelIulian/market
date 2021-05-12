@@ -30,18 +30,21 @@ public class ProductController {
     //IN PROGRESS
     @PostMapping
     public ResponseEntity insertProduct(@RequestBody ProductDTO productDTO) {
-        if (!productServices.checkAvailableStock(productDTO)) {
+        boolean isProductAvailableInStock = productServices.checkAvailableStock(productDTO);
+
+        if (!isProductAvailableInStock) {
             return ResponseEntity.ok("No rawMaterials available !");
-        } else if ((productServices.findProductByName(productDTO.getName()) == null) &&
-                (productServices.checkAvailableStock(productDTO))) {
-            productServices.insertProduct(productDTO);
-            return ResponseEntity.ok("Product " + productDTO.getName() + " created !!");
-        } else if ((productServices.findProductByName(productDTO.getName()) != null) &&
-                (productServices.checkAvailableStock(productDTO))) {
-            productServices.updateStock(productDTO);
-            return ResponseEntity.ok("The product " + productDTO.getName() + " stock is updated");
+        } else {
+
+            ProductDTO productByName = productServices.findProductByName(productDTO.getName());
+            if (productByName == null) {
+                productServices.insertProduct(productDTO);
+                return ResponseEntity.ok("Product " + productDTO.getName() + " created !!");
+            } else {
+                productServices.updateStock(productDTO);
+                return ResponseEntity.ok("The product " + productDTO.getName() + " stock is updated");
+            }
         }
-        return null;
     }
 
     @GetMapping

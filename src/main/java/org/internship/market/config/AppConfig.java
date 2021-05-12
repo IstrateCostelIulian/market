@@ -3,6 +3,9 @@ package org.internship.market.config;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.internship.market.database.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -24,6 +27,7 @@ import java.util.Properties;
         @ComponentScan("org.internship.market.controller")
 })
 @EnableWebMvc
+@EnableCaching
 public class AppConfig implements WebMvcConfigurer {
 
     @Autowired
@@ -68,5 +72,10 @@ public class AppConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    @Bean
+    public CacheManager cacheManager() {
+        return new ConcurrentMapCacheManager("accounting", "products");
     }
 }
