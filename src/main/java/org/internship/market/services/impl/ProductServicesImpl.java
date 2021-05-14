@@ -95,9 +95,8 @@ public class ProductServicesImpl implements ProductServices {
     public boolean checkAvailableStock(ProductDTO productDTO) {
         //boolean available = true;
         if (compareListsOfRawMaterials(productDTO)) {
-
-            List<RawMaterialEntity> materials = rawMaterialDAO.getAllMaterial();
-            for (RawMaterialEntity rawMaterialEntity : materials) {
+            List<RawMaterialDTO> materials = productDTO.getRawMaterialsList();
+            for (RawMaterialDTO rawMaterialEntity : materials) {
                 if (rawMaterialEntity.getStock() == 0) {
                     return false;
                 }
