@@ -21,8 +21,11 @@ public class ProductDAOImpl implements ProductDAO {
     public ProductEntity findProductByName(String name) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query<ProductEntity> query = session.createNamedQuery("findProductByName");
+        //Query<ProductEntity> query = session.createNamedQuery("findProductByName");
+        //use HQL instead of NamedQueries
+        Query<ProductEntity> query = session.createQuery("from ProductEntity where name= :name");
         query.setParameter("name", name);
+
         ProductEntity productEntity = query.uniqueResult();
         session.getTransaction().commit();
         session.close();

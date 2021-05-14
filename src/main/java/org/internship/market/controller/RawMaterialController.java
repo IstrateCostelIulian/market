@@ -39,7 +39,7 @@ public class RawMaterialController {
     }
 
     @GetMapping(path = "/{name}")
-    public RawMaterialDTO getMaterialByName(@RequestParam String name){
+    public RawMaterialDTO getMaterialByName(@PathVariable String name){
        return rawMaterialServices.findRawMaterialsByName(name);
     }
 

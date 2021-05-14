@@ -4,7 +4,6 @@ package org.internship.market.database.entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,17 +13,14 @@ import java.util.List;
                 name = "findProductByName",
                 query = "from ProductEntity where name=:name"
         ),
-
         @NamedQuery(
                 name = "getAllProducts",
                 query = "from ProductEntity"
         ),
-
         @NamedQuery(
                 name = "deleteProductByName",
                 query = "delete ProductEntity productEntity where name=:name"
         ),
-
         @NamedQuery(
                 name = "updateProductPrice",
                 query = "update ProductEntity productEntity set price=:price where name=:name"
@@ -36,11 +32,11 @@ import java.util.List;
 })
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 @Entity
 @Table(name = "products")
 public class ProductEntity {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,8 +48,8 @@ public class ProductEntity {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "products_raw_materials",
-            joinColumns = { @JoinColumn(name = "product_id") },
-            inverseJoinColumns = { @JoinColumn(name = "raw_materials_id") }
+            joinColumns = {@JoinColumn(name = "product_id")},
+            inverseJoinColumns = {@JoinColumn(name = "raw_materials_id")}
     )
     private List<RawMaterialEntity> rawMaterialsList;
 

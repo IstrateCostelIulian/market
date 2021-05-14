@@ -47,13 +47,18 @@ public class ProductController {
         }
     }
 
-    @GetMapping
+    @GetMapping(path = "/{name}")
+    public ProductDTO getByName(@PathVariable String name) {
+        return productServices.findProductByName(name);
+    }
+
+    @GetMapping()
     public List<ProductDTO> getAllProducts() {
         return productServices.getAllProducts();
     }
 
-    @DeleteMapping
-    public ResponseEntity delete(@RequestParam String name) {
+    @DeleteMapping(path = "/{name}")
+    public ResponseEntity delete(@PathVariable String name) {
         if (productServices.findProductByName(name) == null) {
             return ResponseEntity.ok("The product " + name + " doesn't exist !");
         } else {

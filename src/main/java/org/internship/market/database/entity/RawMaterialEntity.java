@@ -3,9 +3,9 @@ package org.internship.market.database.entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NamedQueries({
@@ -32,7 +32,6 @@ import java.util.List;
 })
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 @Entity
 @Table(name = "raw_materials")
@@ -47,7 +46,7 @@ public class RawMaterialEntity {
     private String name;
 
     @ManyToMany(mappedBy = "rawMaterialsList", fetch = FetchType.LAZY)
-    private List<ProductEntity> productEntities;
+    private List<ProductEntity> productEntities = new ArrayList<>();
 
     @Column(name = "price", nullable = false, precision = 2)
     private double price; // for 1 gram

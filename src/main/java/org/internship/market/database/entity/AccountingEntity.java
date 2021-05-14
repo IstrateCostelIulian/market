@@ -29,12 +29,16 @@ public class AccountingEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
+
     @Column(name = "income", nullable = false, precision = 2)
     private double income;
+
     @Column(name = "costs", nullable = false, precision = 2)
     private double costs;
+
     @Column(name = "economic_balance", nullable = false, precision = 2)
     private double economicBalance;
+
     @Column(name = "date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
