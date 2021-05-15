@@ -8,10 +8,10 @@ import org.internship.market.dto.ProductDTO;
 import org.internship.market.dto.RawMaterialDTO;
 import org.internship.market.services.ProductServices;
 import org.internship.market.services.mapper.ProductMapper;
-import org.internship.market.services.mapper.RawMaterialMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -24,31 +24,35 @@ public class ProductServicesImpl implements ProductServices {
     ProductMapper productMapper;
 
     @Autowired
-    RawMaterialMapper materialMapper;
-
-    @Autowired
     RawMaterialDAO rawMaterialDAO;
 
     @Override
     public void insertProduct(ProductDTO productDTO) {
         ProductEntity foundProduct = productDAO.findProductByName(productDTO.getName());
         if (foundProduct == null) {
-            ProductEntity productEntity = productMapper.dtoToEntity(productDTO);
-            for(RawMaterialEntity rawMaterialEntity : productEntity.getRawMaterialsList()){
+            ProductEntity productEntity = new ProductEntity();
+            productEntity.setPrice(productDTO.getPrice());
+            productEntity.setCommercial_excess(productDTO.getCommercial_excess());
+            productEntity.setName(productDTO.getName());
+            List<RawMaterialEntity> rawMaterialEntities = new LinkedList<>();
+            for (RawMaterialDTO rawMaterialDTO : productDTO.getRawMaterialsList()) {
+                rawMaterialEntities.add(rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()));
+            }
+            productEntity.setRawMaterialsList(rawMaterialEntities);
+            for (RawMaterialEntity rawMaterialEntity : productEntity.getRawMaterialsList()) {
                 rawMaterialEntity.getProductEntities().add(productEntity);
             }
             productDAO.createProduct(productEntity);
 
-            /*
-            for (RawMaterialEntity rawMaterialEntity : rawMaterialDAO.getAllMaterial()) {
-                for (RawMaterialDTO rawMaterialDTO : productDTO.getRawMaterialsList()) {
-                    if (rawMaterialDTO.getName().equals(rawMaterialEntity.getName())) {
-                        rawMaterialDAO.updateRawMaterialsStock(rawMaterialEntity.getStock() - rawMaterialDTO.getStock(),
-                                rawMaterialDTO.getName());
-                    }
-                }
+            List<RawMaterialDTO> materialDTOS = productDTO.getRawMaterialsList();
+
+            for (RawMaterialDTO rawMaterialDTO : materialDTOS) {
+
+                rawMaterialDAO.updateRawMaterialsStock((rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()).
+                                getStock() - rawMaterialDTO.getQuantity()),
+                        rawMaterialDTO.getName()
+                );
             }
-             */
         }
     }
 
@@ -80,28 +84,28 @@ public class ProductServicesImpl implements ProductServices {
         ProductEntity productEntity = productDAO.findProductByName(productDTO.getName());
         int stock = productEntity.getStock() + 1;
         productDAO.updateStock(stock, productDTO.getName());
-    }
-
-    private boolean compareListsOfRawMaterials(ProductDTO productDTO) {
         List<RawMaterialDTO> materialDTOS = productDTO.getRawMaterialsList();
         for (RawMaterialDTO rawMaterialDTO : materialDTOS) {
-            //caching is enabled
-            if (rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()) == null)
-                return false;
+            RawMaterialEntity rawMaterialFound = rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName());
+            if (rawMaterialFound.getStock() > 0) {
+                rawMaterialDAO.updateRawMaterialsStock((rawMaterialFound.
+                                getStock() - rawMaterialDTO.getQuantity()),
+                        rawMaterialDTO.getName()
+
+                );
+            }
         }
-        return true;
     }
 
     public boolean checkAvailableStock(ProductDTO productDTO) {
-        //boolean available = true;
-        if (compareListsOfRawMaterials(productDTO)) {
-            List<RawMaterialDTO> materials = productDTO.getRawMaterialsList();
-            for (RawMaterialDTO rawMaterialEntity : materials) {
-                if (rawMaterialEntity.getStock() == 0) {
-                    return false;
-                }
+        List<RawMaterialDTO> materialDTOS = productDTO.getRawMaterialsList();
+        for (RawMaterialDTO rawMaterialDTO : materialDTOS) {
+            if (rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()) == null) {
+                return false;
+            } else if (rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()) != null &&
+                    rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()).getStock() <= rawMaterialDTO.getQuantity()) {
+                return false;
             }
-
         }
         return true;
     }

@@ -19,12 +19,11 @@ public class ProductController {
 
     private final ProductServices productServices;
 
-    private final RawMaterialServices rawMaterialServices;
+
 
     @Autowired
     public ProductController(ProductServices productServices, RawMaterialServices rawMaterialServices) {
         this.productServices = productServices;
-        this.rawMaterialServices = rawMaterialServices;
     }
 
     //IN PROGRESS
@@ -57,8 +56,8 @@ public class ProductController {
         return productServices.getAllProducts();
     }
 
-    @DeleteMapping(path = "/{name}")
-    public ResponseEntity delete(@PathVariable String name) {
+    @DeleteMapping
+    public ResponseEntity delete(@RequestParam String name) {
         if (productServices.findProductByName(name) == null) {
             return ResponseEntity.ok("The product " + name + " doesn't exist !");
         } else {

@@ -45,7 +45,7 @@ public class RawMaterialEntity {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "rawMaterialsList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "rawMaterialsList", fetch = FetchType.EAGER)
     private List<ProductEntity> productEntities = new ArrayList<>();
 
     @Column(name = "price", nullable = false, precision = 2)

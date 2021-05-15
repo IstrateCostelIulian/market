@@ -25,40 +25,41 @@ public class RawMaterialController {
 
     @PostMapping
     public ResponseEntity insert(@RequestBody RawMaterialDTO rawMaterialDTO) {
-        if (rawMaterialServices.findRawMaterialsByName(rawMaterialDTO.getName()) != null) {
-            rawMaterialServices.updateRawMaterialStock(rawMaterialDTO.getQuantity(),rawMaterialDTO.getName());
+        if (rawMaterialServices.findRawMaterialsByName(rawMaterialDTO.getName()) == null) {
+            rawMaterialServices.insertRawMaterials(rawMaterialDTO);
+            return ResponseEntity.ok("Material created !");
+        } else {
+            rawMaterialServices.updateRawMaterialStock(rawMaterialDTO.getQuantity(), rawMaterialDTO.getName());
             return ResponseEntity.ok("The material already exits, quantity updated !");
         }
-        rawMaterialServices.insertRawMaterials(rawMaterialDTO);
-        return ResponseEntity.ok("Material created !");
     }
 
     @GetMapping
-    public List<RawMaterialDTO> getAll(){
+    public List<RawMaterialDTO> getAll() {
         return rawMaterialServices.returnListOfMaterials();
     }
 
     @GetMapping(path = "/{name}")
-    public RawMaterialDTO getMaterialByName(@PathVariable String name){
-       return rawMaterialServices.findRawMaterialsByName(name);
+    public RawMaterialDTO getMaterialByName(@PathVariable String name) {
+        return rawMaterialServices.findRawMaterialsByName(name);
     }
 
     @DeleteMapping
-    public ResponseEntity delete(@RequestParam String name){
-        if(rawMaterialServices.findRawMaterialsByName(name) == null){
+    public ResponseEntity delete(@RequestParam String name) {
+        if (rawMaterialServices.findRawMaterialsByName(name) == null) {
             return ResponseEntity.ok("Material  doesn't exist");
-        }else {
+        } else {
             rawMaterialServices.deleteRawMaterialsByName(name);
             return ResponseEntity.ok("Material deleted");
         }
     }
 
     @PutMapping
-    public ResponseEntity update(@RequestParam double price, @RequestParam String name){
-        if(rawMaterialServices.findRawMaterialsByName(name)== null){
+    public ResponseEntity update(@RequestParam double price, @RequestParam String name) {
+        if (rawMaterialServices.findRawMaterialsByName(name) == null) {
             return ResponseEntity.ok("Material not found !");
-        }else{
-            rawMaterialServices.updateRawMaterialsPrice(price,name);
+        } else {
+            rawMaterialServices.updateRawMaterialsPrice(price, name);
             return ResponseEntity.ok("Price updated");
         }
     }
