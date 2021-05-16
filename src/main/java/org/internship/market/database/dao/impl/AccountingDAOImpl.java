@@ -26,17 +26,7 @@ public class AccountingDAOImpl implements AccountingDAO {
         session.close();
     }
 
-    public AccountingEntity getAccountingById(long id) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        //HQL Named Query Example
-        Query<AccountingEntity> query = session.createNamedQuery("HQL_GET_BY_ID");
-        query.setParameter("id", id);
-        AccountingEntity accountingEntity = query.uniqueResult();
-        session.getTransaction().commit();
-        session.close();
-        return accountingEntity;
-    }
+
 
     public List<AccountingEntity> getAll() {
         Session session = sessionFactory.openSession();
@@ -49,27 +39,35 @@ public class AccountingDAOImpl implements AccountingDAO {
     }
 
     @Override
-    public void deleteAccountingById(long id) {
+    public void deleteAccounting() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query<AccountingEntity> query = session.createNamedQuery("deleteAccountingById");
-        query.setParameter("id", id);
+        Query<AccountingEntity> query = session.createNamedQuery("deleteAccounting");
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();
     }
 
     @Override
-    public void updateCosts(double costs, long id) {
+    public void updateCosts(double costs) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query<AccountingEntity> query = session.createNamedQuery("updateCosts");
         query.setParameter("costs", costs);
-        query.setParameter("id", id);
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();
     }
 
+    @Override
+    public void updateIncome(double income) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<AccountingEntity> query = session.createNamedQuery("updateIncome");
+        query.setParameter("income", income);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
 
 }

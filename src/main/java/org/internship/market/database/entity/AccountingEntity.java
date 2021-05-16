@@ -15,14 +15,15 @@ import java.util.Date;
 @Entity
 @Table(name = "accounting")
 @NamedQueries({
-        @NamedQuery(name = "HQL_GET_BY_ID",
-                query = "from AccountingEntity where id=:id"),
-        @NamedQuery(name = "deleteAccountingById",
-                query = "delete AccountingEntity accountingEntity  where id=:id"),
+
+        @NamedQuery(name = "deleteAccounting",
+                query = "delete AccountingEntity accountingEntity"),
         @NamedQuery(name = "updateCosts",
-                query = "update AccountingEntity accountEntity set costs=:costs where id=:id"),
+                query = "update AccountingEntity accountEntity set costs=:costs where costs > 0"),
         @NamedQuery(name="getAll",
-                query = "from AccountingEntity")
+                query = "from AccountingEntity"),
+        @NamedQuery(name = "updateIncome",
+                query = "update AccountingEntity accountEntity set income=:income where income > 0"),
 })
 public class AccountingEntity {
     @Id

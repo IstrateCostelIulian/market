@@ -8,11 +8,12 @@ public interface AccountingServices {
 
     void insert(AccountingDTO accountingDTO);
 
-    AccountingDTO getAccountingById(long id);
-
     List<AccountingDTO> getAllAccounting();
 
-    void deleteAccountingById(long id);
+    void deleteAccounting();
 
-    void updateCosts(double costs, long id);
+    void updateCosts(double costs);
+
+    void updateIncome(double income);
+
 }

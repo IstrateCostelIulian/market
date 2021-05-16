@@ -8,11 +8,11 @@ public interface AccountingDAO {
 
     void save(AccountingEntity accountingEntity);
 
-    AccountingEntity getAccountingById(long id);
-
     List<AccountingEntity> getAll();
 
-    void deleteAccountingById(long id);
+    void deleteAccounting();
 
-    void updateCosts(double costs, long id);
+    void updateCosts(double costs);
+
+    void updateIncome(double income);
 }

@@ -7,7 +7,6 @@ import org.internship.market.database.dao.ProductDAO;
 import org.internship.market.database.entity.ProductEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,11 +20,9 @@ public class ProductDAOImpl implements ProductDAO {
     public ProductEntity findProductByName(String name) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        //Query<ProductEntity> query = session.createNamedQuery("findProductByName");
         //use HQL instead of NamedQueries
         Query<ProductEntity> query = session.createQuery("from ProductEntity where name= :name");
         query.setParameter("name", name);
-
         ProductEntity productEntity = query.uniqueResult();
         session.getTransaction().commit();
         session.close();
@@ -59,6 +56,16 @@ public class ProductDAOImpl implements ProductDAO {
         session.beginTransaction();
         Query<ProductEntity> query = session.createNamedQuery("deleteProductByName");
         query.setParameter("name", name);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void deleteAllProducts() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<ProductEntity> query = session.createQuery("delete ProductEntity productEntity");
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface RawMaterialServices {
 
-    List<RawMaterialDTO> returnListOfMaterials();
+    List<RawMaterialDTO> getAllMaterials();
 
     void insertRawMaterials(RawMaterialDTO rawMaterialDTO);
 
@@ -20,5 +20,7 @@ public interface RawMaterialServices {
     void updateRawMaterialsPrice(double price, String name);
 
     void updateRawMaterialStock(double quantity, String name);
+
+    void deleteAllProducts();
 
 }

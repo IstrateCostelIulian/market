@@ -14,7 +14,6 @@ import java.util.List;
 @Slf4j
 public class RawMaterialController {
 
-
     public final RawMaterialServices rawMaterialServices;
 
     @Autowired
@@ -36,7 +35,7 @@ public class RawMaterialController {
 
     @GetMapping
     public List<RawMaterialDTO> getAll() {
-        return rawMaterialServices.returnListOfMaterials();
+        return rawMaterialServices.getAllMaterials();
     }
 
     @GetMapping(path = "/{name}")
@@ -44,13 +43,23 @@ public class RawMaterialController {
         return rawMaterialServices.findRawMaterialsByName(name);
     }
 
-    @DeleteMapping
-    public ResponseEntity delete(@RequestParam String name) {
+    @DeleteMapping(path = "/{name}")
+    public ResponseEntity delete(@PathVariable String name) {
         if (rawMaterialServices.findRawMaterialsByName(name) == null) {
             return ResponseEntity.ok("Material  doesn't exist");
         } else {
             rawMaterialServices.deleteRawMaterialsByName(name);
             return ResponseEntity.ok("Material deleted");
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity deleteAll() {
+        if (rawMaterialServices.getAllMaterials() == null) {
+            return ResponseEntity.ok("No materials to be deleted");
+        } else {
+            rawMaterialServices.deleteAllProducts();
+            return ResponseEntity.ok("All materials have been deleted!");
         }
     }
 

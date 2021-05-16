@@ -56,13 +56,23 @@ public class ProductController {
         return productServices.getAllProducts();
     }
 
-    @DeleteMapping
+    @DeleteMapping(path = "/{name}")
     public ResponseEntity delete(@RequestParam String name) {
         if (productServices.findProductByName(name) == null) {
             return ResponseEntity.ok("The product " + name + " doesn't exist !");
         } else {
             productServices.deleteProductByName(name);
             return ResponseEntity.ok("The Product " + name + " was deleted !");
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity deleteAll() {
+        if (productServices.getAllProducts() == null) {
+            return ResponseEntity.ok("No products to be deleted !");
+        } else {
+            productServices.deleteAllProducts();
+            return ResponseEntity.ok("All products have been deleted!");
         }
     }
 

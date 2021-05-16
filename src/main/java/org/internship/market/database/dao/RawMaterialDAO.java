@@ -18,5 +18,7 @@ public interface RawMaterialDAO {
 
     void deleteRawMaterialsByName(String name);
 
+    void deleteAllMaterials();
+
 
 }

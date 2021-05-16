@@ -30,35 +30,37 @@ public class AccountingController {
     }
 
     @GetMapping
-    public List<AccountingDTO> geAll() {
+    public List<AccountingDTO> getAll() {
         log.info("accounting get all");
         return accountingServices.getAllAccounting();
     }
 
-    @GetMapping(path = "/{id}")
-    public AccountingDTO getById(@PathVariable long id) {
-        log.info("find accounting by id : {} ", id);
-        return accountingServices.getAccountingById(id);
+
+    @DeleteMapping
+    public ResponseEntity delete(){
+        log.info("delete accounting");
+        accountingServices.deleteAccounting();
+        return ResponseEntity.ok("Accounting deleted!");
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity deleteAccountingById(@PathVariable long id) {
-        log.info("delete accounting by id : {} ", id);
-        if (accountingServices.getAccountingById(id) == null) {
-            return ResponseEntity.ok("Entity not found !");
+    @PutMapping(path = "/{costs}")
+    public ResponseEntity updateCosts(@RequestParam double costs) {
+        log.info("update cost accounting  costs : {}",  costs);
+        if (accountingServices.getAllAccounting() == null) {
+            return ResponseEntity.ok("The entity not found");
         } else {
-            accountingServices.deleteAccountingById(id);
-            return ResponseEntity.ok("Entity deleted with success !");
+            accountingServices.updateCosts(costs);
+            return ResponseEntity.ok("Updated with success !");
         }
     }
 
-    @PutMapping(path = "/{id}")
-    public ResponseEntity updateCosts(@RequestParam double costs, @PathVariable long id) {
-        log.info("update cost accounting by id : {}  , costs : {}", id, costs);
-        if (accountingServices.getAccountingById(id) == null) {
+    @PutMapping()
+    public ResponseEntity updateIncome(@RequestParam double income) {
+        log.info("update income accounting income : {}",  income);
+        if (accountingServices.getAllAccounting() == null) {
             return ResponseEntity.ok("The entity not found");
         } else {
-            accountingServices.updateCosts(costs, id);
+            accountingServices.updateIncome(income);
             return ResponseEntity.ok("Updated with success !");
         }
     }

@@ -1,5 +1,6 @@
 package org.internship.market.services.impl;
 
+import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.dao.RawMaterialDAO;
 import org.internship.market.database.entity.RawMaterialEntity;
 import org.internship.market.dto.RawMaterialDTO;
@@ -19,6 +20,9 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     @Autowired
     RawMaterialMapper rawMaterialMapper;
 
+    @Autowired
+    AccountingDAO accountingDAO;
+
 
     @Override
     public void insertRawMaterials(RawMaterialDTO rawMaterialDTO) {
@@ -30,6 +34,8 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
             double stock = rawMaterialDTO.getQuantity() + foundRawMaterialEntity.getStock();
             rawMaterialDAO.updateRawMaterialsStock(stock, rawMaterialDTO.getName());
         }
+        //accountingDAO.updateCosts();
+
     }
 
     @Override
@@ -57,9 +63,14 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
         }
     }
 
+    @Override
+    public void deleteAllProducts() {
+        rawMaterialDAO.deleteAllMaterials();
+    }
+
 
     @Override
-    public List<RawMaterialDTO> returnListOfMaterials() {
+    public List<RawMaterialDTO> getAllMaterials() {
         List<RawMaterialEntity> rawMaterialEntities = rawMaterialDAO.getAllMaterial();
         return rawMaterialMapper.entityToDtoS(rawMaterialEntities);
     }

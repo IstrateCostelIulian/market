@@ -18,4 +18,6 @@ public interface ProductDAO {
 
     void updateStock(int stock, String name);
 
+    void deleteAllProducts();
+
 }

@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.internship.market.database.dao.RawMaterialDAO;
+import org.internship.market.database.entity.ProductEntity;
 import org.internship.market.database.entity.RawMaterialEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -81,6 +82,15 @@ public class RawMaterialDAOImpl implements RawMaterialDAO {
         session.beginTransaction();
         Query<RawMaterialEntity> query = session.createNamedQuery("deleteRawMaterialByName");
         query.setParameter("name", name);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void deleteAllMaterials() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<RawMaterialEntity> query = session.createQuery("delete RawMaterialEntity rawMaterialsEntity ");
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();

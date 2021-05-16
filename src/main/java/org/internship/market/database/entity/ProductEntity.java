@@ -28,7 +28,7 @@ import java.util.List;
         @NamedQuery(
                 name = "updateStock",
                 query = "update ProductEntity productEntity set stock=:stock where name=:name"
-        )
+        ),
 })
 @Getter
 @Setter

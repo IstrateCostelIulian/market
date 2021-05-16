@@ -73,6 +73,11 @@ public class ProductServicesImpl implements ProductServices {
         productDAO.deleteProductByName(name);
     }
 
+    @Override
+    public void deleteAllProducts() {
+        productDAO.deleteAllProducts();
+    }
+
 
     @Override
     public void updatePrice(double price, String name) {
@@ -109,4 +114,6 @@ public class ProductServicesImpl implements ProductServices {
         }
         return true;
     }
+
+
 }

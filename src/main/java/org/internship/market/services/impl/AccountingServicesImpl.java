@@ -34,14 +34,6 @@ public class AccountingServicesImpl implements AccountingServices {
 
     @Override
     @Cacheable("accounting")
-    public AccountingDTO getAccountingById(long id) {
-        AccountingEntity accountingEntity = accountingDAO.getAccountingById(id);
-        log.info("getAccountingById : {} , = {} ", id, accountingEntity);
-        return mapper.entityToDto(accountingEntity);
-    }
-
-    @Override
-    @Cacheable("accounting")
     public List<AccountingDTO> getAllAccounting() {
         List<AccountingEntity> allEntities = accountingDAO.getAll();
         log.info("getAllAccounting size : {} ", allEntities.size());
@@ -50,17 +42,23 @@ public class AccountingServicesImpl implements AccountingServices {
 
     @Override
     @CacheEvict("accounting")
-    public void deleteAccountingById(long id) {
-        log.info("Service delete by id: {} ", id);
-        accountingDAO.deleteAccountingById(id);
+    public void deleteAccounting() {
+        log.info("Service delete");
+        accountingDAO.deleteAccounting();
     }
 
     @Override
     @CacheEvict("accounting")
-    public void updateCosts(double costs, long id) {
-        log.info("Service update cost for id : {} , cost : {} ", id, costs);
-        accountingDAO.updateCosts(costs, id);
+    public void updateCosts(double costs) {
+        log.info("Service update cost for  cost : {} ", costs);
+        accountingDAO.updateCosts(costs);
     }
 
+    @Override
+    @CacheEvict("accounting")
+    public void updateIncome(double income) {
+        log.info("Service update income for  income : {} ", income);
+        accountingDAO.updateIncome(income);
+    }
 
 }

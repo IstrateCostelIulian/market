@@ -14,10 +14,14 @@ public interface ProductServices {
 
     void deleteProductByName(String name);
 
+    void deleteAllProducts();
+
     void updatePrice(double price, String name);
 
     void updateStock(ProductDTO productDTO);
 
     boolean checkAvailableStock(ProductDTO productDTO);
+
+
 
 }
