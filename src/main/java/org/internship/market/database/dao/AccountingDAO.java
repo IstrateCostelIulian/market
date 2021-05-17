@@ -15,4 +15,5 @@ public interface AccountingDAO {
     void updateCosts(double costs);
 
     void updateIncome(double income);
+
 }

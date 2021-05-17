@@ -27,7 +27,7 @@ import java.util.Properties;
         @ComponentScan("org.internship.market.controller")
 })
 @EnableWebMvc
-@EnableCaching
+
 public class AppConfig implements WebMvcConfigurer {
 
     @Autowired

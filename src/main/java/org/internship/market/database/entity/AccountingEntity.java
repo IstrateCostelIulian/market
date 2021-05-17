@@ -20,7 +20,7 @@ import java.util.Date;
                 query = "delete AccountingEntity accountingEntity"),
         @NamedQuery(name = "updateCosts",
                 query = "update AccountingEntity accountEntity set costs=:costs where costs > 0"),
-        @NamedQuery(name="getAll",
+        @NamedQuery(name = "getAll",
                 query = "from AccountingEntity"),
         @NamedQuery(name = "updateIncome",
                 query = "update AccountingEntity accountEntity set income=:income where income > 0"),

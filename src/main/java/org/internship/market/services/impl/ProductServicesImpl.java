@@ -34,6 +34,11 @@ public class ProductServicesImpl implements ProductServices {
             productEntity.setPrice(productDTO.getPrice());
             productEntity.setCommercial_excess(productDTO.getCommercial_excess());
             productEntity.setName(productDTO.getName());
+            if(productDTO.getStock() == 0){
+                productEntity.setStock(1);
+            }else{
+                productEntity.setStock(productDTO.getStock());
+            }
             List<RawMaterialEntity> rawMaterialEntities = new LinkedList<>();
             for (RawMaterialDTO rawMaterialDTO : productDTO.getRawMaterialsList()) {
                 rawMaterialEntities.add(rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()));
@@ -105,10 +110,10 @@ public class ProductServicesImpl implements ProductServices {
     public boolean checkAvailableStock(ProductDTO productDTO) {
         List<RawMaterialDTO> materialDTOS = productDTO.getRawMaterialsList();
         for (RawMaterialDTO rawMaterialDTO : materialDTOS) {
-            if (rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()) == null) {
+            RawMaterialEntity rawMaterialByName = rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName());
+            if (rawMaterialByName == null) {
                 return false;
-            } else if (rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()) != null &&
-                    rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName()).getStock() <= rawMaterialDTO.getQuantity()) {
+            } else if (rawMaterialByName.getStock() < rawMaterialDTO.getQuantity()) {
                 return false;
             }
         }

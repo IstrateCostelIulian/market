@@ -2,12 +2,14 @@ package org.internship.market.services.impl;
 
 import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.dao.RawMaterialDAO;
+import org.internship.market.database.entity.AccountingEntity;
 import org.internship.market.database.entity.RawMaterialEntity;
 import org.internship.market.dto.RawMaterialDTO;
 import org.internship.market.services.RawMaterialServices;
 import org.internship.market.services.mapper.RawMaterialMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,17 +27,20 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
 
 
     @Override
+    @Transactional
     public void insertRawMaterials(RawMaterialDTO rawMaterialDTO) {
-        RawMaterialEntity foundRawMaterialEntity = rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName());
-        if (foundRawMaterialEntity == null) {
-            RawMaterialEntity rawMaterialEntity = rawMaterialMapper.dtoToEntity(rawMaterialDTO);
-            rawMaterialDAO.createRawMaterial(rawMaterialEntity);
-        } else {
-            double stock = rawMaterialDTO.getQuantity() + foundRawMaterialEntity.getStock();
-            rawMaterialDAO.updateRawMaterialsStock(stock, rawMaterialDTO.getName());
-        }
-        //accountingDAO.updateCosts();
+        RawMaterialEntity rawMaterialEntity = rawMaterialMapper.dtoToEntity(rawMaterialDTO);
+        rawMaterialDAO.createRawMaterial(rawMaterialEntity);
 
+        updateCostFromPrice(rawMaterialDTO.getPrice());
+    }
+
+
+    private void updateCostFromPrice(double costs) {
+        AccountingEntity accountingEntity = accountingDAO.getAll().get(0);
+        double newCost = costs + accountingEntity.getCosts();
+
+        accountingDAO.updateCosts(newCost);
     }
 
     @Override
@@ -55,12 +60,15 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     }
 
     @Override
+    @Transactional
     public void updateRawMaterialStock(double quantity, String name) {
         RawMaterialEntity foundRawMaterial = rawMaterialDAO.getRawMaterialByName(name);
         if (foundRawMaterial != null) {
             quantity += foundRawMaterial.getStock();
             rawMaterialDAO.updateRawMaterialsStock(quantity, name);
         }
+        double newPrice = quantity * foundRawMaterial.getPrice();
+        updateCostFromPrice(newPrice);
     }
 
     @Override
