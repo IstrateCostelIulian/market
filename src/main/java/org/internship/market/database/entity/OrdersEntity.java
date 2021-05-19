@@ -6,6 +6,27 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(
+
+                name = "findOrderByName",
+                query = "from OrdersEntity where name:=name"
+        ),
+        @NamedQuery(
+                name = "getAllOrders",
+                query = "from OrdersEntity"
+        ),
+
+        @NamedQuery(
+                name = "deleteAllOrders",
+                query = "delete OrdersEntity ordersEntity where name=:name"
+        ),
+        @NamedQuery(
+                name = "updateOrderPrice",
+                query = "update OrdersEntity ordersEntity set price=:price where name=:name"
+        ),
+})
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -31,10 +52,10 @@ public class OrdersEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
-    private CustomerEntity customerEntity;
+    private CustomerEntity customer;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
-    private ProductEntity productEntity;
+    private ProductEntity product;
 
 }
