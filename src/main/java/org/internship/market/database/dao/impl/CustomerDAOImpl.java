@@ -50,11 +50,42 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
+    public void deleteByEmail(String email) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("delete CustomerEntity customerEntity where email =:email");
+        query.setParameter("email", email);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
     public List<CustomerEntity> findAll() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query<CustomerEntity> query = session.createQuery("from CustomerEntity");
         List<CustomerEntity> responseEntity = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return responseEntity;
+    }
+
+    @Override
+    public void deleteALL() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("delete CustomerEntity customerEntity");
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public CustomerEntity findByEmail(String email) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<CustomerEntity> query = session.createQuery("from CustomerEntity where email=:email");
+        query.setParameter("email", email);
+        CustomerEntity responseEntity = query.uniqueResult();
         session.getTransaction().commit();
         session.close();
         return responseEntity;

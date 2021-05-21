@@ -38,6 +38,7 @@ public class OrdersEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "command_number")
     private int commandNumber;
 

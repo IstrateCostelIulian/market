@@ -12,5 +12,12 @@ public interface CustomerDAO {
 
     void deleteByName(String name);
 
+    void deleteByEmail(String email);
+
     List<CustomerEntity> findAll();
+
+    void deleteALL();
+
+    CustomerEntity findByEmail(String email);
+
 }
