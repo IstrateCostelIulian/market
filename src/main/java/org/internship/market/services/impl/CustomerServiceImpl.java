@@ -29,20 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO findByName(String name) {
-        CustomerEntity customerEntity = customerDAO.findByName(name);
-        return customerMapper.entityToDto(customerEntity);
-    }
-
-
-    @Override
-    public void deleteByName(String name) {
-        customerDAO.deleteByName(name);
-    }
-
-    @Override
-    public void deleteByEmail(String email) {
-        customerDAO.deleteByEmail(email);
+    public void deleteByEmail(String emailAddress) {
+        customerDAO.deleteByEmail(emailAddress);
     }
 
     @Override
@@ -57,8 +45,34 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO findByEmail(String email) {
-        CustomerEntity customerEntity = customerDAO.findByName(email);
+    public CustomerDTO findByEmail(String emailAddress) {
+        CustomerEntity customerEntity = customerDAO.findByEmail(emailAddress);
         return customerMapper.entityToDto(customerEntity);
+    }
+
+    @Override
+    public CustomerDTO findByPhoneNumber(String phoneNumber) {
+        CustomerEntity customerEntity = customerDAO.findByPhoneNumber(phoneNumber);
+        return customerMapper.entityToDto(customerEntity);
+    }
+
+    @Override
+    public void updateNameAndSurname(String name, String surname, String emailAddress) {
+        customerDAO.updateNameAndSurname(name, surname, emailAddress);
+    }
+
+    @Override
+    public void updatePhoneNumber(String phoneNumber, String emailAddress) {
+        customerDAO.updatePhoneNumber(phoneNumber, emailAddress);
+    }
+
+    @Override
+    public void updateAddress(String address, String emailAddress) {
+        customerDAO.updateAddress(address, emailAddress);
+    }
+
+    @Override
+    public void updateEmail(String emailAddress, String phoneNumber) {
+        customerDAO.updateEmail(emailAddress, phoneNumber);
     }
 }

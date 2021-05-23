@@ -62,6 +62,6 @@ public class ProductEntity {
     @Column(name = "stock")
     private int stock;
 
-    @OneToMany(mappedBy = "productEntity")
+    @OneToMany(mappedBy = "product")
     private List<OrdersEntity> ordersEntityList;
 }

@@ -34,7 +34,7 @@ public class CustomerEntity {
     @Column(name = "email_address", unique = true, nullable = false, length = 50)
     private String emailAddress;
 
-    @OneToMany(mappedBy = "customerEntity")
+    @OneToMany(mappedBy = "customer")
     private List<OrdersEntity> ordersEntityList;
 
 }

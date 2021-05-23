@@ -6,7 +6,9 @@ import org.hibernate.query.Query;
 import org.internship.market.database.dao.OrdersDAO;
 import org.internship.market.database.entity.OrdersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class OrdersDAOImpl implements OrdersDAO {
 
     @Autowired

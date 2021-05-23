@@ -1,5 +1,6 @@
 package org.internship.market.services;
 
+import org.internship.market.database.entity.CustomerEntity;
 import org.internship.market.dto.CustomerDTO;
 
 import java.util.List;
@@ -8,10 +9,6 @@ public interface CustomerService {
 
     void createCustomer(CustomerDTO customerDTO);
 
-    CustomerDTO findByName(String name);
-
-    void deleteByName(String name);
-
     void deleteByEmail(String email);
 
     List<CustomerDTO> findAll();
@@ -19,6 +16,16 @@ public interface CustomerService {
     void deleteALL();
 
     CustomerDTO findByEmail(String email);
+
+    CustomerDTO findByPhoneNumber(String phoneNumber);
+
+    void updateNameAndSurname(String name, String surname, String emailAddress);
+
+    void updatePhoneNumber(String phoneNumber, String emailAddress);
+
+    void updateAddress(String address, String emailAddress);
+
+    void updateEmail(String emailAddress, String phoneNumber);
 
 
 }

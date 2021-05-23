@@ -8,10 +8,6 @@ public interface CustomerDAO {
 
     void createCustomer(CustomerEntity customerEntity);
 
-    CustomerEntity findByName(String name);
-
-    void deleteByName(String name);
-
     void deleteByEmail(String email);
 
     List<CustomerEntity> findAll();
@@ -19,5 +15,15 @@ public interface CustomerDAO {
     void deleteALL();
 
     CustomerEntity findByEmail(String email);
+
+    CustomerEntity findByPhoneNumber(String phoneNumber);
+
+    void updateNameAndSurname(String name, String surname, String emailAddress);
+
+    void updatePhoneNumber(String phoneNumber, String emailAddress);
+
+    void updateAddress(String address, String emailAddress);
+
+    void updateEmail(String emailAddress, String phoneNumber);
 
 }

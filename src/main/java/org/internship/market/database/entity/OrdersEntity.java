@@ -10,7 +10,7 @@ import javax.persistence.*;
         @NamedQuery(
 
                 name = "findOrderByName",
-                query = "from OrdersEntity where name:=name"
+                query = "from OrdersEntity where name=:name"
         ),
         @NamedQuery(
                 name = "getAllOrders",
