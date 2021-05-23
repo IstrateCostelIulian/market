@@ -47,7 +47,7 @@ public class ProductController {
     }
 
     @GetMapping(path = "/{name}")
-    public ProductDTO getByName(@PathVariable String name) {
+    public ProductDTO getByName(@RequestParam String name) {
         return productServices.findProductByName(name);
     }
 

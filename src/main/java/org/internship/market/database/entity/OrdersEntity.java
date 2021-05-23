@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(
@@ -42,14 +43,17 @@ public class OrdersEntity {
     @Column(name = "command_number")
     private int commandNumber;
 
-    @Column(name = "amount")
-    private int amount;
+    @Column(name = "quantity")
+    private int quantity;
 
     @Column(name = "price")
     private double price;
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "date", nullable = false)
+    private Date date;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")

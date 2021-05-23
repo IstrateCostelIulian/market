@@ -27,11 +27,9 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
 
 
     @Override
-    @Transactional
     public void insertRawMaterials(RawMaterialDTO rawMaterialDTO) {
         RawMaterialEntity rawMaterialEntity = rawMaterialMapper.dtoToEntity(rawMaterialDTO);
         rawMaterialDAO.createRawMaterial(rawMaterialEntity);
-
         updateCostFromPrice(rawMaterialDTO.getPrice());
     }
 
@@ -39,7 +37,6 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     private void updateCostFromPrice(double costs) {
         AccountingEntity accountingEntity = accountingDAO.getAll().get(0);
         double newCost = costs + accountingEntity.getCosts();
-
         accountingDAO.updateCosts(newCost);
     }
 

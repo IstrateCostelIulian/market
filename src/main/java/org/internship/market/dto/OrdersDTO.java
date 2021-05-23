@@ -1,9 +1,12 @@
 package org.internship.market.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -12,9 +15,11 @@ import lombok.ToString;
 public class OrdersDTO {
 
     private int commandNumber;
-    private int amount;
+    private String productName;
+    private int quantity;
     private  double price;
     private String customerName;
-    private String productName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date date;
 
 }
