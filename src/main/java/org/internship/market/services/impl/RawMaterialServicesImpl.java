@@ -11,33 +11,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class RawMaterialServicesImpl implements RawMaterialServices {
 
-    @Autowired
-    RawMaterialDAO rawMaterialDAO;
+    private final RawMaterialDAO rawMaterialDAO;
+    private final RawMaterialMapper rawMaterialMapper;
+    private final AccountingDAO accountingDAO;
 
     @Autowired
-    RawMaterialMapper rawMaterialMapper;
-
-    @Autowired
-    AccountingDAO accountingDAO;
-
+    public RawMaterialServicesImpl(RawMaterialDAO rawMaterialDAO,
+                                   RawMaterialMapper rawMaterialMapper,
+                                   AccountingDAO accountingDAO) {
+        this.rawMaterialDAO = rawMaterialDAO;
+        this.rawMaterialMapper = rawMaterialMapper;
+        this.accountingDAO = accountingDAO;
+    }
 
     @Override
+    @Transactional
     public void insertRawMaterials(RawMaterialDTO rawMaterialDTO) {
         RawMaterialEntity rawMaterialEntity = rawMaterialMapper.dtoToEntity(rawMaterialDTO);
         rawMaterialDAO.createRawMaterial(rawMaterialEntity);
-        updateCostFromPrice(rawMaterialDTO.getPrice());
+        double costToAdd = rawMaterialDTO.getQuantity() * rawMaterialDTO.getPrice();
+        updateCostFromPrice(costToAdd);
     }
 
 
     private void updateCostFromPrice(double costs) {
-        AccountingEntity accountingEntity = accountingDAO.getAll().get(0);
-        double newCost = costs + accountingEntity.getCosts();
-        accountingDAO.updateCosts(newCost);
+        List<AccountingEntity> accountingEntityList = accountingDAO.getAll();
+
+        if (accountingEntityList.isEmpty()) {
+            AccountingEntity accountingEntity = new AccountingEntity();
+            accountingEntity.setCosts(costs);
+            accountingEntity.setEconomicBalance(1000 - costs);
+            accountingEntity.setIncome(0);
+            accountingEntity.setDate(new Date());
+            accountingDAO.save(accountingEntity);
+        } else {
+            AccountingEntity accountingEntity = accountingEntityList.get(0);
+            double newCost = costs + accountingEntity.getCosts();
+            accountingDAO.updateCosts(newCost);
+        }
     }
 
     @Override
@@ -60,12 +77,14 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     @Transactional
     public void updateRawMaterialStock(double quantity, String name) {
         RawMaterialEntity foundRawMaterial = rawMaterialDAO.getRawMaterialByName(name);
+
         if (foundRawMaterial != null) {
             quantity += foundRawMaterial.getStock();
             rawMaterialDAO.updateRawMaterialsStock(quantity, name);
+
+            double newPrice = quantity * foundRawMaterial.getPrice();
+            updateCostFromPrice(newPrice);
         }
-        double newPrice = quantity * foundRawMaterial.getPrice();
-        updateCostFromPrice(newPrice);
     }
 
     @Override

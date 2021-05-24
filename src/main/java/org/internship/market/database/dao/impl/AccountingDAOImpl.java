@@ -48,6 +48,8 @@ public class AccountingDAOImpl implements AccountingDAO {
         session.close();
     }
 
+
+    //TODO - (economic_balance - costs)
     @Override
     public void updateCosts(double costs) {
         Session session = sessionFactory.openSession();
@@ -59,6 +61,7 @@ public class AccountingDAOImpl implements AccountingDAO {
         session.close();
     }
 
+    //TODO - (economic_balance + income)
     @Override
     public void updateIncome(double income) {
         Session session = sessionFactory.openSession();

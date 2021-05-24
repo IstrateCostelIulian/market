@@ -10,6 +10,7 @@ import org.internship.market.services.ProductServices;
 import org.internship.market.services.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,16 +18,19 @@ import java.util.List;
 @Service
 public class ProductServicesImpl implements ProductServices {
 
-    @Autowired
-    ProductDAO productDAO;
+    private final ProductDAO productDAO;
+    private final ProductMapper productMapper;
+    private final RawMaterialDAO rawMaterialDAO;
 
     @Autowired
-    ProductMapper productMapper;
-
-    @Autowired
-    RawMaterialDAO rawMaterialDAO;
+    public ProductServicesImpl(ProductDAO productDAO, ProductMapper productMapper, RawMaterialDAO rawMaterialDAO) {
+        this.productDAO = productDAO;
+        this.productMapper = productMapper;
+        this.rawMaterialDAO = rawMaterialDAO;
+    }
 
     @Override
+    @Transactional
     public void insertProduct(ProductDTO productDTO) {
         ProductEntity foundProduct = productDAO.findProductByName(productDTO.getName());
         if (foundProduct == null) {
@@ -34,9 +38,9 @@ public class ProductServicesImpl implements ProductServices {
             productEntity.setPrice(productDTO.getPrice());
             productEntity.setCommercial_excess(productDTO.getCommercial_excess());
             productEntity.setName(productDTO.getName());
-            if(productDTO.getStock() == 0){
+            if (productDTO.getStock() == 0) {
                 productEntity.setStock(1);
-            }else{
+            } else {
                 productEntity.setStock(productDTO.getStock());
             }
             List<RawMaterialEntity> rawMaterialEntities = new LinkedList<>();
@@ -90,6 +94,7 @@ public class ProductServicesImpl implements ProductServices {
     }
 
     @Override
+    @Transactional
     public void updateStock(ProductDTO productDTO) {
         ProductEntity productEntity = productDAO.findProductByName(productDTO.getName());
         int stock = productEntity.getStock() + 1;
@@ -112,8 +117,6 @@ public class ProductServicesImpl implements ProductServices {
         for (RawMaterialDTO rawMaterialDTO : materialDTOS) {
             RawMaterialEntity rawMaterialByName = rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName());
             if (rawMaterialByName == null) {
-                return false;
-            } else if (rawMaterialByName.getStock() < rawMaterialDTO.getQuantity()) {
                 return false;
             }
         }
