@@ -38,7 +38,7 @@ import java.util.Date;
                 name = "updateEconomicBalanceByIncome",
                 query = "update AccountingEntity accountEntity set economicBalance=:economicBalance + income " +
                         "where economicBalance >= 0"
-        ),
+        )
 })
 public class AccountingEntity {
     @Id

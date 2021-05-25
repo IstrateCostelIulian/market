@@ -1,5 +1,6 @@
 package org.internship.market.services.impl;
 
+import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.dao.ProductDAO;
 import org.internship.market.database.dao.RawMaterialDAO;
 import org.internship.market.database.entity.ProductEntity;
@@ -21,13 +22,17 @@ public class ProductServicesImpl implements ProductServices {
     private final ProductDAO productDAO;
     private final ProductMapper productMapper;
     private final RawMaterialDAO rawMaterialDAO;
+    private final AccountingDAO accountingDAO;
 
     @Autowired
-    public ProductServicesImpl(ProductDAO productDAO, ProductMapper productMapper, RawMaterialDAO rawMaterialDAO) {
+    public ProductServicesImpl(ProductDAO productDAO, ProductMapper productMapper, RawMaterialDAO rawMaterialDAO,
+                               AccountingDAO accountingDAO) {
         this.productDAO = productDAO;
         this.productMapper = productMapper;
         this.rawMaterialDAO = rawMaterialDAO;
+        this.accountingDAO = accountingDAO;
     }
+
 
     @Override
     @Transactional

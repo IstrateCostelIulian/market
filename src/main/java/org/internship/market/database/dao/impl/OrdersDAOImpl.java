@@ -8,6 +8,8 @@ import org.internship.market.database.entity.OrdersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class OrdersDAOImpl implements OrdersDAO {
 
@@ -25,23 +27,34 @@ public class OrdersDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public OrdersEntity findOrderByName(String name) {
+    public OrdersEntity findOrderByNumber(long orderNUmber) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query<OrdersEntity> query = session.createQuery("from OrdersEntity where name= :name");
-        query.setParameter("name", name);
-        OrdersEntity ordersEntity= query.uniqueResult();
+        Query<OrdersEntity> query = session.createQuery("from OrdersEntity where orderNumber=:orderNumber");
+        query.setParameter("orderNUmber", orderNUmber);
+        OrdersEntity ordersEntity = query.uniqueResult();
         session.getTransaction().commit();
         session.close();
         return ordersEntity;
     }
 
     @Override
-    public void deleteOrderByName(String name) {
+    public List<OrdersEntity> getAll() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query = session.createQuery("delete OrdersEntity ordersEntity where name =:name");
-        query.setParameter("name", name);
+        Query<OrdersEntity> query = session.createQuery("from OrdersEntity");
+        List<OrdersEntity> list = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return list;
+    }
+
+    @Override
+    public void deleteOrderByNumber(long orderNumber) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("delete OrdersEntity ordersEntity where orderNumber=:orderNumber");
+        query.setParameter("orderNumber", orderNumber);
         session.getTransaction().commit();
         session.close();
 
@@ -55,6 +68,47 @@ public class OrdersDAOImpl implements OrdersDAO {
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();
+    }
 
+    @Override
+    public void updateOrderPrice(double price, long orderNumber) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query update = session.createQuery(
+                "update OrderEntity orderEntity set price=:price where orderNumber=:orderNumber"
+        );
+        update.setParameter("price", price);
+        update.setParameter("orderNumber", orderNumber);
+        update.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void updateOrderStatus(String status, long orderNumber) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query update = session.createQuery(
+                "update OrderEntity orderEntity set status=:status where orderNumber=:orderNumber"
+        );
+        update.setParameter("status", status);
+        update.setParameter("orderNumber", orderNumber);
+        update.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void updateOrderQuantity(int quantity, long orderNumber) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query update = session.createQuery(
+                "update OrderEntity orderEntity set quantity=:quantity where orderNumber=:orderNumber"
+        );
+        update.setParameter("quantity", quantity);
+        update.setParameter("orderNumber", orderNumber);
+        update.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
     }
 }

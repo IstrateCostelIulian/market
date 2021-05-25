@@ -7,27 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
-@NamedQueries({
-        @NamedQuery(
-
-                name = "findOrderByName",
-                query = "from OrdersEntity where name=:name"
-        ),
-        @NamedQuery(
-                name = "getAllOrders",
-                query = "from OrdersEntity"
-        ),
-
-        @NamedQuery(
-                name = "deleteAllOrders",
-                query = "delete OrdersEntity ordersEntity where name=:name"
-        ),
-        @NamedQuery(
-                name = "updateOrderPrice",
-                query = "update OrdersEntity ordersEntity set price=:price where name=:name"
-        )
-})
-
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -40,8 +19,8 @@ public class OrdersEntity {
     private long id;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "command_number")
-    private int commandNumber;
+    @Column(name = "order_number")
+    private long orderNumber;
 
     @Column(name = "quantity")
     private int quantity;
