@@ -29,6 +29,8 @@ public class RawMaterialController {
             return ResponseEntity.ok("Material created !");
         } else {
             rawMaterialServices.updateRawMaterialStock(rawMaterialDTO.getQuantity(), rawMaterialDTO.getName());
+            double costToAdd = rawMaterialDTO.getQuantity() * rawMaterialDTO.getPrice();
+            rawMaterialServices.updateCostFromPrice(costToAdd);
             return ResponseEntity.ok("The material already exits, quantity updated !");
         }
     }

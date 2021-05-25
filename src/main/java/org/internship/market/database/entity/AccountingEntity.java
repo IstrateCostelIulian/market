@@ -16,14 +16,29 @@ import java.util.Date;
 @Table(name = "accounting")
 @NamedQueries({
 
-        @NamedQuery(name = "deleteAccounting",
+        @NamedQuery(
+                name = "deleteAccounting",
                 query = "delete AccountingEntity accountingEntity"),
-        @NamedQuery(name = "updateCosts",
-                query = "update AccountingEntity accountEntity set costs=:costs where costs > 0"),
-        @NamedQuery(name = "getAll",
+        @NamedQuery(
+                name = "updateCosts",
+                query = "update AccountingEntity accountEntity set costs=:costs where costs >= 0"),
+        @NamedQuery(
+                name = "getAll",
                 query = "from AccountingEntity"),
-        @NamedQuery(name = "updateIncome",
-                query = "update AccountingEntity accountEntity set income=:income where income > 0"),
+        @NamedQuery(
+                name = "updateIncome",
+                query = "update AccountingEntity accountEntity set income=:income where income >= 0"
+        ),
+        @NamedQuery(
+                name = "updateEconomicBalanceByCosts",
+                query = "update AccountingEntity accountEntity set economicBalance=:economicBalance - costs " +
+                        "where economicBalance >= 0"
+        ),
+        @NamedQuery(
+                name = "updateEconomicBalanceByIncome",
+                query = "update AccountingEntity accountEntity set economicBalance=:economicBalance + income " +
+                        "where economicBalance >= 0"
+        ),
 })
 public class AccountingEntity {
     @Id

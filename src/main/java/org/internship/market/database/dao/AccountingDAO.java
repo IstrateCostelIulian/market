@@ -16,4 +16,8 @@ public interface AccountingDAO {
 
     void updateIncome(double income);
 
+    public void updateEconomicBalanceByCosts(double economicBalance);
+
+    public void updateEconomicBalanceByIncome();
+
 }

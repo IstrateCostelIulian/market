@@ -25,7 +25,7 @@ import java.util.Date;
         @NamedQuery(
                 name = "updateOrderPrice",
                 query = "update OrdersEntity ordersEntity set price=:price where name=:name"
-        ),
+        )
 })
 
 @Getter

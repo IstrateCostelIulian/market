@@ -27,7 +27,6 @@ public class AccountingDAOImpl implements AccountingDAO {
     }
 
 
-
     public List<AccountingEntity> getAll() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -48,8 +47,6 @@ public class AccountingDAOImpl implements AccountingDAO {
         session.close();
     }
 
-
-    //TODO - (economic_balance - costs)
     @Override
     public void updateCosts(double costs) {
         Session session = sessionFactory.openSession();
@@ -61,13 +58,33 @@ public class AccountingDAOImpl implements AccountingDAO {
         session.close();
     }
 
-    //TODO - (economic_balance + income)
     @Override
     public void updateIncome(double income) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query<AccountingEntity> query = session.createNamedQuery("updateIncome");
         query.setParameter("income", income);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void updateEconomicBalanceByCosts(double economicBalance) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<AccountingEntity> query = session.createNamedQuery("updateEconomicBalanceByCosts");
+        query.setParameter("economicBalance", economicBalance);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void updateEconomicBalanceByIncome() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query<AccountingEntity> query = session.createNamedQuery("updateEconomicBalanceByIncome");
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();

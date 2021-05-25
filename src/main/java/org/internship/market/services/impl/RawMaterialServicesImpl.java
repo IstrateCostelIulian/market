@@ -40,7 +40,7 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
     }
 
 
-    private void updateCostFromPrice(double costs) {
+    public void updateCostFromPrice(double costs) {
         List<AccountingEntity> accountingEntityList = accountingDAO.getAll();
 
         if (accountingEntityList.isEmpty()) {
@@ -54,6 +54,7 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
             AccountingEntity accountingEntity = accountingEntityList.get(0);
             double newCost = costs + accountingEntity.getCosts();
             accountingDAO.updateCosts(newCost);
+            accountingDAO.updateEconomicBalanceByCosts(accountingEntity.getEconomicBalance());
         }
     }
 

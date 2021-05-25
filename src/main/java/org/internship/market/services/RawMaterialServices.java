@@ -21,6 +21,8 @@ public interface RawMaterialServices {
 
     void updateRawMaterialStock(double quantity, String name);
 
+    void updateCostFromPrice(double costs);
+
     void deleteAllProducts();
 
 }
