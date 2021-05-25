@@ -1,9 +1,7 @@
 package org.internship.market.services.mapper;
 
 import org.internship.market.database.entity.CustomerEntity;
-import org.internship.market.database.entity.ProductEntity;
 import org.internship.market.dto.CustomerDTO;
-import org.internship.market.dto.ProductDTO;
 import org.mapstruct.Mapper;
 
 import java.util.List;
