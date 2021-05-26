@@ -123,6 +123,8 @@ public class ProductServicesImpl implements ProductServices {
             RawMaterialEntity rawMaterialByName = rawMaterialDAO.getRawMaterialByName(rawMaterialDTO.getName());
             if (rawMaterialByName == null) {
                 return false;
+            } else if (rawMaterialByName.getStock() < 0 || rawMaterialByName.getStock() < rawMaterialDTO.getQuantity()) {
+                return false;
             }
         }
         return true;

@@ -41,7 +41,6 @@ public class ProductController {
                 return ResponseEntity.ok("Product " + productDTO.getName() + " created !!");
             } else {
                 productServices.updateStock(productDTO);
-                // TODO - update income for AccountingEntity - income
                 return ResponseEntity.ok("The product " + productDTO.getName() + " stock is updated");
             }
         }

@@ -4,6 +4,7 @@ import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.dao.OrdersDAO;
 import org.internship.market.database.dao.ProductDAO;
 import org.internship.market.database.entity.AccountingEntity;
+import org.internship.market.database.entity.CustomerEntity;
 import org.internship.market.database.entity.OrdersEntity;
 import org.internship.market.database.entity.ProductEntity;
 import org.internship.market.dto.OrdersDTO;
@@ -37,7 +38,18 @@ public class OrdersServicesImpl implements OrdersServices {
     @Override
     @Transactional
     public void insertOrder(OrdersDTO ordersDTO) {
-        OrdersEntity ordersEntity = orderMapper.orderDtoToOrderEntity(ordersDTO);
+        OrdersEntity ordersEntity = new OrdersEntity();
+        CustomerEntity customerEntity = new CustomerEntity();
+        ordersEntity.setDate(ordersDTO.getDate());
+        ordersEntity.setPrice(ordersDTO.getPrice());
+        ordersEntity.setQuantity(ordersDTO.getQuantity());
+        customerEntity.setName(ordersDTO.getCustomer().getName());
+        customerEntity.setSurname(ordersDTO.getCustomer().getSurname());
+        customerEntity.setAddress(ordersDTO.getCustomer().getAddress());
+        customerEntity.setEmailAddress(ordersDTO.getCustomer().getEmailAddress());
+        customerEntity.setPhoneNumber(ordersDTO.getCustomer().getPhoneNumber());
+        ordersEntity.setCustomer(customerEntity);
+
         ProductEntity productEntity = productDAO.findProductByName(ordersDTO.getProductName());
 
         ordersDAO.createOrder(ordersEntity);

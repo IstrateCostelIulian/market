@@ -27,7 +27,7 @@ public class OrdersController {
     }
 
     @PostMapping
-    public ResponseEntity insertOrder(OrdersDTO ordersDTO){
+    public ResponseEntity insertOrder(@RequestBody OrdersDTO ordersDTO){
         ProductDTO productDTO = productServices.findProductByName(ordersDTO.getProductName());
         if(productDTO.getStock() == 0 || productDTO.getStock() < ordersDTO.getQuantity()){
             return ResponseEntity.ok("Insufficient stock! \n Only " + productDTO.getStock() + " available!");

@@ -31,7 +31,7 @@ public class OrdersEntity {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     private Date date;
 
     @ManyToOne(cascade = CascadeType.ALL)

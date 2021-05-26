@@ -11,11 +11,10 @@ import java.util.Date;
 @Setter
 @EqualsAndHashCode
 public class OrdersDTO {
-
     private String productName;
     private int quantity;
     private double price;
-    private String customerName;
+    private CustomerDTO customer;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
 
