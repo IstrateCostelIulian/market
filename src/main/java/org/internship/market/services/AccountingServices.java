@@ -1,5 +1,6 @@
 package org.internship.market.services;
 
+import org.internship.market.database.entity.AccountingEntity;
 import org.internship.market.dto.AccountingDTO;
 
 import java.util.List;

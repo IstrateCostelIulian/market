@@ -40,8 +40,8 @@ public class ProductServicesImpl implements ProductServices {
         ProductEntity foundProduct = productDAO.findProductByName(productDTO.getName());
         if (foundProduct == null) {
             ProductEntity productEntity = new ProductEntity();
-            productEntity.setPrice(productDTO.getPrice());
-            productEntity.setCommercial_excess(productDTO.getCommercial_excess());
+            productEntity.setPrice(calcProdPrice(productDTO));
+            productEntity.setCommercialExcess(productDTO.getCommercial_excess());
             productEntity.setName(productDTO.getName());
             if (productDTO.getStock() == 0) {
                 productEntity.setStock(1);
@@ -68,6 +68,17 @@ public class ProductServicesImpl implements ProductServices {
                 );
             }
         }
+    }
+
+    private double calcProdPrice(ProductDTO productDTO){
+        List<RawMaterialDTO> list = productDTO.getRawMaterialsList();
+        double productionCost = 0;
+        for(RawMaterialDTO rawMaterial : list){
+            productionCost += rawMaterial.getPrice() * rawMaterial.getQuantity();
+        }
+        double price = productionCost + (productionCost * productDTO.getCommercial_excess() / 100);
+
+        return price;
     }
 
     @Override

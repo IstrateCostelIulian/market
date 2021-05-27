@@ -24,9 +24,12 @@ public class AccountingController {
 
     @PostMapping
     public ResponseEntity insertAccounting(@RequestBody AccountingDTO accountingDTO) {
-        log.info("insert accounting : {} ", accountingDTO.toString());
-        accountingServices.insert(accountingDTO);
-        return ResponseEntity.ok("Entity inserted with success !");
+        if(accountingServices.getAllAccounting().isEmpty()){
+            log.info("insert accounting : {} ", accountingDTO.toString());
+            accountingServices.insert(accountingDTO);
+            return ResponseEntity.ok("Entity inserted with success !");
+        }
+        return ResponseEntity.ok("Accounting already exits!");
     }
 
     @GetMapping

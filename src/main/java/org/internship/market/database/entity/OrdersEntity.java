@@ -22,16 +22,16 @@ public class OrdersEntity {
     @Column(name = "order_number")
     private long orderNumber;
 
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private double price;
 
     @Column(name = "status")
     private String status;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Date date;
 
     @ManyToOne(cascade = CascadeType.ALL)

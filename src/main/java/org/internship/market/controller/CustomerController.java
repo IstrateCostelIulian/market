@@ -21,7 +21,9 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity createCustomer(@RequestBody CustomerDTO customerDTO) {
-        if (customerService.findByEmail(customerDTO.getAddress()) == null) {
+        if (customerService.findByEmail(customerDTO.getEmailAddress()) == null ||
+                customerService.findByPhoneNumber(customerDTO.getPhoneNumber()) == null) {
+
             customerService.createCustomer(customerDTO);
             return ResponseEntity.ok("Customer created");
         } else {

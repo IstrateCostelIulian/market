@@ -1,6 +1,5 @@
 package org.internship.market.database.entity;
 
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +41,7 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -53,10 +52,10 @@ public class ProductEntity {
     )
     private List<RawMaterialEntity> rawMaterialsList;
 
-    @Column(name = "commercial_excess")
-    private double commercial_excess;
+    @Column(name = "commercial_excess", nullable = false)
+    private double commercialExcess;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private double price;
 
     @Column(name = "stock")

@@ -41,9 +41,9 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
 
 
     public void updateCostFromPrice(double costs) {
-        List<AccountingEntity> accountingEntityList = accountingDAO.getAll();
+        AccountingEntity foundAccounting = accountingDAO.getAll().get(0);
 
-        if (accountingEntityList.isEmpty()) {
+        if (foundAccounting == null) {
             AccountingEntity accountingEntity = new AccountingEntity();
             accountingEntity.setCosts(costs);
             accountingEntity.setEconomicBalance(1000 - costs);
@@ -51,10 +51,9 @@ public class RawMaterialServicesImpl implements RawMaterialServices {
             accountingEntity.setDate(new Date());
             accountingDAO.save(accountingEntity);
         } else {
-            AccountingEntity accountingEntity = accountingEntityList.get(0);
-            double newCost = costs + accountingEntity.getCosts();
+            double newCost = costs + foundAccounting.getCosts();
             accountingDAO.updateCosts(newCost);
-            accountingDAO.updateEconomicBalanceByCosts(accountingEntity.getEconomicBalance());
+            accountingDAO.updateEconomicBalanceByCosts(foundAccounting.getEconomicBalance());
         }
     }
 

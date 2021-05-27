@@ -81,10 +81,11 @@ public class AccountingDAOImpl implements AccountingDAO {
     }
 
     @Override
-    public void updateEconomicBalanceByIncome() {
+    public void updateEconomicBalanceByIncome(double economicBalance) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query<AccountingEntity> query = session.createNamedQuery("updateEconomicBalanceByIncome");
+        query.setParameter("economicBalance", economicBalance);
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();

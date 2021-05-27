@@ -18,6 +18,6 @@ public interface AccountingDAO {
 
     public void updateEconomicBalanceByCosts(double economicBalance);
 
-    public void updateEconomicBalanceByIncome();
+    public void updateEconomicBalanceByIncome(double economicBalance);
 
 }

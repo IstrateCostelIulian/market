@@ -51,7 +51,7 @@ public class RawMaterialEntity {
     @Column(name = "price", nullable = false, precision = 2)
     private double price; // for 1 gram
 
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     private double quantity;
 
     @Column(name = "stock")
