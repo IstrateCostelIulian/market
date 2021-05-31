@@ -84,6 +84,19 @@ public class OrdersDAOImpl implements OrdersDAO {
         session.close();
     }
 
+    public void updateOrderNumber(double price, long orderNumber) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query update = session.createQuery(
+                "update OrderEntity orderEntity set orderNumber=:orderNumber++;"
+        );
+        update.setParameter("price", price);
+        update.setParameter("orderNumber", orderNumber);
+        update.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
     @Override
     public void updateOrderStatus(String status, long orderNumber) {
         Session session = sessionFactory.openSession();

@@ -3,6 +3,8 @@ package org.internship.market.database.entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,8 +20,7 @@ public class OrdersEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_number")
+    @Column(name = "orderNumber", nullable = false)
     private long orderNumber;
 
     @Column(name = "quantity", nullable = false)

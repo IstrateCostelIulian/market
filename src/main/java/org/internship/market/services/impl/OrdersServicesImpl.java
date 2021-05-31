@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class OrdersServicesImpl implements OrdersServices {
@@ -48,12 +49,13 @@ public class OrdersServicesImpl implements OrdersServices {
 
 
     @Override
-
     public void insertOrder(OrdersDTO ordersDTO) {
 
         OrdersEntity ordersEntity = new OrdersEntity();
         ordersEntity.setDate(ordersDTO.getDate());
         ordersEntity.setQuantity(ordersDTO.getQuantity());
+
+        ordersEntity.setOrderNumber(orderNumberGenerator());
 
         setCustomerOnOrder(ordersDTO, ordersEntity);
 
@@ -66,6 +68,11 @@ public class OrdersServicesImpl implements OrdersServices {
         productDAO.updateStock(newStock, productEntity.getName());
 
         updateIncomeByOrder(ordersEntity);
+    }
+
+    private int orderNumberGenerator() {
+        Random random = new Random();
+        return random.nextInt(Integer.MAX_VALUE);
     }
 
     private void updateIncomeByOrder(OrdersEntity ordersEntity) {

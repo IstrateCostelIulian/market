@@ -41,4 +41,15 @@ public class OrdersController {
     public List<OrdersDTO> getAll(){
         return ordersServices.getAll();
     }
+
+    @DeleteMapping
+    public ResponseEntity deleteAll(){
+        if(ordersServices.getAll().isEmpty()){
+            return ResponseEntity.ok("No orders found!!");
+        }else {
+            ordersServices.deleteAllOrders();
+            return ResponseEntity.ok("All orders deleted!!");
+        }
+
+    }
 }
