@@ -13,11 +13,14 @@ import java.util.List;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    CustomerMapper customerMapper;
+    private final CustomerMapper customerMapper;
+    private final CustomerDAO customerDAO;
 
     @Autowired
-    CustomerDAO customerDAO;
+    public CustomerServiceImpl(CustomerMapper customerMapper, CustomerDAO customerDAO) {
+        this.customerMapper = customerMapper;
+        this.customerDAO = customerDAO;
+    }
 
     @Override
     public void createCustomer(CustomerDTO customerDTO) {
