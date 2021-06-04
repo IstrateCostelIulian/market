@@ -13,6 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,6 +28,9 @@ class AccountingServicesTest {
     @Mock
     AccountingMapper mapper;
 
+    @Mock
+    AccountingDTO accountingDTO;
+
     @InjectMocks
     AccountingServicesImpl accountingServices;
 
@@ -33,7 +40,7 @@ class AccountingServicesTest {
 
     @AfterEach
     void tearDown() {
-       verifyNoMoreInteractions(accountingDAO, mapper);
+        verifyNoMoreInteractions(accountingDAO, mapper, accountingDTO);
     }
 
     @Test
@@ -47,6 +54,31 @@ class AccountingServicesTest {
 
         verify(mapper, times(1)).dtoToEntity(dto);
         verify(accountingDAO).save(entity);
+    }
+
+    @Test
+    void shouldReturnAccountingDtoList() {
+        List<AccountingDTO> listDto = Collections.singletonList(new AccountingDTO());
+        List<AccountingEntity> listEntity = Collections.singletonList(new AccountingEntity());
+
+        when(accountingDAO.getAll()).thenReturn(listEntity);
+        when(mapper.entitiesToDtoS(listEntity)).thenReturn(listDto);
+
+        List<AccountingDTO> list = accountingServices.getAllAccounting();
+
+        verify(accountingDAO).getAll();
+        verify(mapper).entitiesToDtoS(listEntity);
+
+        assertThat(list).isNotEmpty();
+    }
+
+    @Test
+    void shouldDeleteAccounting(){
+
+        accountingServices.deleteAccounting();
+
+        verify(accountingDAO).deleteAccounting();
 
     }
+
 }

@@ -1,6 +1,5 @@
 package org.internship.market.services;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.internship.market.database.dao.CustomerDAO;
 import org.internship.market.database.entity.CustomerEntity;
 import org.internship.market.dto.CustomerDTO;
