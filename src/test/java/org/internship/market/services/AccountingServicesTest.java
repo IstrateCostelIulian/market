@@ -73,12 +73,25 @@ class AccountingServicesTest {
     }
 
     @Test
-    void shouldDeleteAccounting(){
-
+    void shouldDeleteAccounting() {
         accountingServices.deleteAccounting();
 
         verify(accountingDAO).deleteAccounting();
-
     }
+
+    @Test
+    void shouldUpdateCosts() {
+        accountingServices.updateCosts(10.5);
+
+        verify(accountingDAO).updateCosts(10.5);
+    }
+
+    @Test
+    void shouldUpdateIncome() {
+        accountingServices.updateIncome(10.5);
+
+        verify(accountingDAO).updateIncome(10.5);
+    }
+
 
 }

@@ -12,6 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -69,4 +73,76 @@ class CustomerServiceTest {
 
         verify(dao).deleteByEmail(email);
     }
+
+    @Test
+    void shouldFindAll() {
+        List<CustomerDTO> dtoList = Collections.singletonList(new CustomerDTO());
+        List<CustomerEntity> entities = Collections.singletonList(new CustomerEntity());
+
+        when(dao.findAll()).thenReturn(entities);
+        when(mapper.entitiesToDtoS(entities)).thenReturn(dtoList);
+
+        List<CustomerDTO> list = service.findAll();
+
+        verify(dao).findAll();
+        verify(mapper).entitiesToDtoS(entities);
+
+        assertThat(dtoList).isNotEmpty();
+    }
+
+    @Test
+    void shouldDeleteAll() {
+        service.deleteALL();
+
+        verify(dao).deleteALL();
+    }
+
+    @Test
+    void shouldFindByEmail() {
+
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setEmailAddress(email);
+        CustomerEntity entity = new CustomerEntity();
+
+        when(dao.findByEmail(email)).thenReturn(entity);
+        when(mapper.entityToDto(entity)).thenReturn(customerDTO);
+
+        CustomerDTO customer = service.findByEmail(email);
+
+        verify(dao).findByEmail(email);
+        verify(mapper).entityToDto(entity);
+
+        assertThat(customer.getEmailAddress()).isEqualTo(email);
+    }
+
+    @Test
+    void shouldFindByPhoneNumber() {
+
+        String number = "0747442033";
+        CustomerEntity entity = new CustomerEntity();
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setPhoneNumber(number);
+
+        when(dao.findByPhoneNumber(number)).thenReturn(entity);
+        when(mapper.entityToDto(entity)).thenReturn(customerDTO);
+
+        CustomerDTO customer = service.findByPhoneNumber(number);
+
+        verify(dao).findByPhoneNumber(number);
+        verify(mapper).entityToDto(entity);
+
+        assertThat(customer.getPhoneNumber()).isEqualTo(number);
+    }
+
+    @Test
+    void shouldUpdateNameAndSurname(){
+        String name = "Snow";
+        String surname = "John";
+
+        dao.updateNameAndSurname(name, surname,email);
+
+        verify(dao).updateNameAndSurname(name,surname,email);
+
+    }
+
 }
