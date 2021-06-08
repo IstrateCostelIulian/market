@@ -4,9 +4,6 @@ import org.internship.market.database.dao.AccountingDAO;
 import org.internship.market.database.dao.CustomerDAO;
 import org.internship.market.database.dao.OrdersDAO;
 import org.internship.market.database.dao.ProductDAO;
-import org.internship.market.database.entity.CustomerEntity;
-import org.internship.market.database.entity.OrdersEntity;
-import org.internship.market.database.entity.ProductEntity;
 import org.internship.market.services.impl.OrdersServicesImpl;
 import org.internship.market.services.mapper.CustomerMapper;
 import org.internship.market.services.mapper.OrderMapper;
@@ -17,8 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Date;
 
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
@@ -50,7 +45,7 @@ public class OrdersServicesTest {
     }
 
     @Test
-    void shouldInsertOrder(){
+    void shouldInsertOrder() {
 
     }
 }
