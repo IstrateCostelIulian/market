@@ -21,6 +21,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceTest {
     private final String email = "test@gmail.com";
+    private final String phoneNumber = "0747442033";
 
     @Mock
     CustomerMapper mapper;
@@ -87,7 +88,7 @@ class CustomerServiceTest {
         verify(dao).findAll();
         verify(mapper).entitiesToDtoS(entities);
 
-        assertThat(dtoList).isNotEmpty();
+        assertThat(list).isNotEmpty();
     }
 
     @Test
@@ -99,7 +100,6 @@ class CustomerServiceTest {
 
     @Test
     void shouldFindByEmail() {
-
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setEmailAddress(email);
         CustomerEntity entity = new CustomerEntity();
@@ -117,32 +117,52 @@ class CustomerServiceTest {
 
     @Test
     void shouldFindByPhoneNumber() {
-
-        String number = "0747442033";
         CustomerEntity entity = new CustomerEntity();
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setPhoneNumber(number);
+        customerDTO.setPhoneNumber(phoneNumber);
 
-        when(dao.findByPhoneNumber(number)).thenReturn(entity);
+        when(dao.findByPhoneNumber(phoneNumber)).thenReturn(entity);
         when(mapper.entityToDto(entity)).thenReturn(customerDTO);
 
-        CustomerDTO customer = service.findByPhoneNumber(number);
+        CustomerDTO customer = service.findByPhoneNumber(phoneNumber);
 
-        verify(dao).findByPhoneNumber(number);
+        verify(dao).findByPhoneNumber(phoneNumber);
         verify(mapper).entityToDto(entity);
 
-        assertThat(customer.getPhoneNumber()).isEqualTo(number);
+        assertThat(customer.getPhoneNumber()).isEqualTo(phoneNumber);
     }
 
     @Test
-    void shouldUpdateNameAndSurname(){
+    void shouldUpdateNameAndSurname() {
         String name = "Snow";
         String surname = "John";
 
-        dao.updateNameAndSurname(name, surname,email);
+        dao.updateNameAndSurname(name, surname, email);
 
-        verify(dao).updateNameAndSurname(name,surname,email);
+        verify(dao).updateNameAndSurname(name, surname, email);
+    }
 
+    @Test
+    void shouldUpdatePhoneNUmber() {
+        dao.updatePhoneNumber(phoneNumber, email);
+
+        verify(dao).updatePhoneNumber(phoneNumber, email);
+    }
+
+    @Test
+    void shouldUpdateAddress() {
+        String address = "Bucharest";
+
+        dao.updateAddress(address, email);
+
+        verify(dao).updateAddress(address, email);
+    }
+
+    @Test
+    void shouldUpdateEmail() {
+        dao.updateEmail(email, phoneNumber);
+
+        verify(dao).updateEmail(email, phoneNumber);
     }
 
 }
