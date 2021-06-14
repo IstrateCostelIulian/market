@@ -98,7 +98,7 @@ public class OrdersServicesImpl implements OrdersServices {
     }
 
     private double orderPrice(OrdersDTO ordersDTO, ProductEntity product) {
-        double price = ordersDTO.getQuantity() + product.getPrice();
+        double price = ordersDTO.getQuantity() * product.getPrice();
         return price;
     }
 
