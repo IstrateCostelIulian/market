@@ -13,11 +13,11 @@ public interface OrdersServices {
 
     void insertOrder(OrdersDTO ordersDTO);
 
-    OrdersDTO findOrderByNumber(long orderNUmber);
+    OrdersDTO findOrderByNumber(long orderNumber);
 
     List<OrdersDTO> getAll();
 
-    void deleteOrderByNumber(long orderNUmber);
+    void deleteOrderByNumber(long orderNumber);
 
     void  deleteAllOrders();
 

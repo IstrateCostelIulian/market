@@ -50,6 +50,15 @@ public class OrdersController {
             ordersServices.deleteAllOrders();
             return ResponseEntity.ok("All orders deleted!!");
         }
+    }
 
+    @GetMapping(path = "/{orderNumber}")
+    public OrdersDTO getOrderByNumber(@RequestParam long orderNumber){
+        if(ordersServices.findOrderByNumber(orderNumber) == null) {
+            ResponseEntity.ok("Order not found !");
+            return null;
+        }else {
+            return ordersServices.findOrderByNumber(orderNumber);
+        }
     }
 }

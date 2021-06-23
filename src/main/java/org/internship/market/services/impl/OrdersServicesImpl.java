@@ -103,14 +103,13 @@ public class OrdersServicesImpl implements OrdersServices {
     }
 
     @Override
-    public OrdersDTO findOrderByNumber(long orderNUmber) {
-        OrdersEntity entity = ordersDAO.findOrderByNumber(orderNUmber);
+    public OrdersDTO findOrderByNumber(long orderNumber) {
+        OrdersEntity entity = ordersDAO.findOrderByNumber(orderNumber);
         OrdersDTO ordersDTO = orderMapper.orderEntityToOrderDTO(entity);
         ordersDTO.setProductName(entity.getProduct().getName());
         return ordersDTO;
     }
 
-    // in progress
     @Override
     public List<OrdersDTO> getAll() {
         List<OrdersEntity> ordersEntities = ordersDAO.getAll();

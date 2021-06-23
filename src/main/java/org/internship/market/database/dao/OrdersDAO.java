@@ -8,11 +8,11 @@ public interface OrdersDAO {
 
     void createOrder(OrdersEntity ordersEntity);
 
-    OrdersEntity findOrderByNumber(long orderNUmber);
+    OrdersEntity findOrderByNumber(long orderNumber);
 
     List<OrdersEntity> getAll();
 
-    void deleteOrderByNumber(long orderNUmber);
+    void deleteOrderByNumber(long orderNumber);
 
     void  deleteAllOrders();
 

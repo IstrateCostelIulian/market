@@ -27,11 +27,11 @@ public class OrdersDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public OrdersEntity findOrderByNumber(long orderNUmber) {
+    public OrdersEntity findOrderByNumber(long orderNumber) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query<OrdersEntity> query = session.createQuery("from OrdersEntity where orderNumber=:orderNumber");
-        query.setParameter("orderNUmber", orderNUmber);
+        query.setParameter("orderNumber", orderNumber);
         OrdersEntity ordersEntity = query.uniqueResult();
         session.getTransaction().commit();
         session.close();

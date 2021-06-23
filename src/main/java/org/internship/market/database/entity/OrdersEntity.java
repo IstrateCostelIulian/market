@@ -3,8 +3,6 @@ package org.internship.market.database.entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenerationTime;
-import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.util.Date;
