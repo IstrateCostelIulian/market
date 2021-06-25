@@ -1,6 +1,6 @@
 
 RAW_MATERIAL
-GET 	/material
+GET 	localhost:8080/material
 	- all Materials
 
 POST 	/material
