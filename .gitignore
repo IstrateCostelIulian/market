@@ -50,3 +50,7 @@ local.properties
 hs_err_pid*
 /target/
 /src/main/resources/db.properties
+/frontend/src/main/angular/node/
+/frontend/src/main/angular/node_modules/
+/frontend/src/main/angular/dist/
+
