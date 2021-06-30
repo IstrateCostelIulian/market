@@ -18,7 +18,7 @@ public class SwaggerConfig {
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.internship.market.controller"))
+                .apis(RequestHandlerSelectors.basePackage("market"))
                 .paths(PathSelectors.any())
 
                 .build()
