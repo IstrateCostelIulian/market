@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.internship</groupId>
-    <artifactId>market</artifactId>
+    <artifactId>market-parent</artifactId>
     <version>0.0.1</version>
     <modules>
         <module>backend</module>
